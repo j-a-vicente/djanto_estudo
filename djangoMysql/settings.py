@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+"""import dj_database_url"""
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +28,7 @@ SECRET_KEY = 'django-insecure-lz15^=t&7hz!5$q)y3972+z%e56^idnzif6!xtv7ff(lls&0tr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -59,7 +61,7 @@ ROOT_URLCONF = 'djangoMysql.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': ['core/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -89,6 +91,10 @@ DATABASES = {
     }
 }
 
+"""DATABASES = {
+    'default': dj_database_url.config()
+}
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -133,3 +139,17 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Usar o servidor de email local desenvolvimento
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+"""
+# Utilizar o servidor de email da empresa
+EMAIL_HOST='servidor_de_email'
+EMAIL_HOST_USER='user@empresa.com.br'
+EMAIL_PORT=5555
+EMAIL_USER_TSL_ = True
+EMAIL_HOST_PASSWORD = 'senha da conta de email.'
+
+"""
+
+
