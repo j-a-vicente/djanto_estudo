@@ -5,8 +5,19 @@ from django.shortcuts import redirect
 from .forms import ContatoForm, ProdutoModelForm
 from .models import Produto
 
-def index(reguest):
-    return render(reguest, 'index.html')
+
+
+
+def index(request):
+    context = {
+        'produtos': Produto.objects.all()
+    }
+    return render(request, 'index.html', context)
+
+
+
+
+
 
 
 def contato(reguest):
@@ -27,6 +38,7 @@ def contato(reguest):
 
 
 def produto(request):
+    print(f'Usuário:{request.user}')
     if str(request.user) != 'AnonymousUser':
         if str(request.method) == 'POST':
             form = ProdutoModelForm(request.POST, request.FILES)
@@ -53,3 +65,5 @@ def produto(request):
         return render(request, 'produto.html', context)
     else:
         return redirect('index')
+    
+
