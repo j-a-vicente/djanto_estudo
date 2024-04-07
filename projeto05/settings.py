@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "blue",
+    "aqua",
 ]
 
 MIDDLEWARE = [
@@ -91,8 +92,15 @@ DATABASES = {
         'PASSWORD':'Sentinel',
         'HOST':'192.168.1.5',
         'PORT':'5542',
-    }
-    
+    },
+    "aqua_db": {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'aqua_db',
+        'USER': 'Sentinel',
+        'PASSWORD':'Sentinel',
+        'HOST':'192.168.1.5',
+        'PORT':'5542',
+    }    
 }
 
 
@@ -132,7 +140,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-DATABASE_ROUTERS = ['routers.db_routers.AuthRouter','routers.db_routers.Blue',]
+DATABASE_ROUTERS = ['routers.db_routers.AuthRouter','routers.db_routers.Blue','routers.db_routers.Aqua',]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
