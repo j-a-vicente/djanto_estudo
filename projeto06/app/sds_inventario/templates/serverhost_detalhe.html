@@ -1,0 +1,377 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% load crispy_forms_tags %}
+{% bootstrap_javascript %}
+
+
+{% if request.user.is_authenticated %}
+    {% block content1 %}
+
+        <script>
+            // Mantem o menu do Inventário aberto quando a pagina é carregada.
+            // Script para modificar elementos na página base.html quando a página serverhost_list.html for carregada
+            document.addEventListener("DOMContentLoaded", function() {
+                // Modifica o link de navegação para abrir o menu de inventário ao ser clicado
+                var navLink = document.querySelector('.nav-link[data-bs-target="#collapseInventario"]');
+                navLink.setAttribute("href", "{% url 'serverhost_list' %}");
+                
+                // Modifica a classe do elemento de colapso para exibi-lo quando a página é carregada
+                var collapseElement = document.querySelector('#collapseInventario');
+                collapseElement.classList.add("show");
+            });
+        </script>
+
+<body class="sb-nav-fixed"></body>
+    <link href="{% static 'css/bootstrap.mim.css' %}" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+
+    
+<main>
+    <title> Server Host {{ServerHost.hostname}} </title>
+
+    
+    <div class="container-fluid px-4">
+        <div class="row" mx-md-n5>
+            &nbsp;
+        </div>
+        <!--Cabeçalho: Modulo-->
+        <div class="container-fluid px-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <div class="row">
+                        <!-- Primeira coluna -->
+                        <div class="col-md-6">
+                            <div class="flex-fill d-flex flex-column align-baseline  ">
+                                <h5><i class="fa-solid fa-server"></i>&nbsp;{{ServerHost.hostname}} </h5>
+                            </div>
+                        </div>
+                        <!-- Segunda coluna -->
+                        <div class="col-md-6">
+                            <div class="d-flex flex-row-reverse">
+                                <a id="sds_integrator_ModuloJobSchedule_Link" class="btn btn-primary btn-sm" href="">Voltar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row px-4">
+                    <div>&nbsp;</div>
+                </div>
+                <div class="row px-4">
+                    <div class="col-xl-3 h-100" style="height: 32px;">
+                        <p class="card-text"><strong>Trilha:</strong> {{ ServerHost.trilha }} </p>
+                    </div>
+                    <div class="col-xl-3 h-100" style="height: 32px;">
+                        <p class="card-text"><strong>Tipo Maquina:</strong> {{ ServerHost.fisicovm }} </p>
+                    </div>
+                    <div class="col-xl-3 h-100" style="height: 32px;">
+                        <p class="card-text"><strong>Descrição:</strong> {{ ServerHost.descricao }} </p>
+                    </div>
+                    <div class="col-xl-3 h-100" style="height: 32px;">
+                        <p class="card-text"><strong>Sistema operacional:</strong> {{ ServerHost.sistemaoperaciona }} </p>
+                    </div>
+                </div>
+                               
+            </div>
+        </div>
+
+        <div class="container-fluid px-4" style="height: calc(95vh - 100px);">
+            <div class="card" style="height: calc(95vh - 100px);">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" onclick="ativar('nav-detalhe')" id="nav-detalhe-tab" data-toggle="tab" href="#nav-detalhe" role="tab" aria-controls="nav-detalhe" aria-selected="true"><i class="fa-solid fa-layer-group"></i>&nbsp;Detalhe</a>
+                        {% if ServerHost.ad %}
+                            <a class="nav-item nav-link" onclick="ativar('nav-ad')" id="nav-ad-tab" data-toggle="tab" href="#nav-ad" role="tab" aria-controls="nav-ad" aria-selected="false"><i class="fas fa-users"></i>&nbsp;Active Directory</a>
+                       {% endif %}
+                        {% if ServerHost.nx %}
+                            <a class="nav-item nav-link" onclick="ativar('nav-nutanix')" id="nav-nutanix-tab" data-toggle="tab" href="#nav-nutanix" role="tab" aria-controls="nav-nutanix" aria-selected="false"><i class="fa-solid fa-laptop-code"></i>&nbsp;Nutanix</a>
+                        {% endif %}
+                        {% if ServerHost.vw %}
+                            <a class="nav-item nav-link" onclick="ativar('nav-vm')" id="nav-vm-tab" data-toggle="tab" href="#nav-vm" role="tab" aria-controls="nav-vm" aria-selected="false"><i class="fa-solid fa-desktop"></i>&nbsp;VMware</a>
+                        {% endif %}
+                        {% if ServerHost.sccm %}
+                            <a class="nav-item nav-link" onclick="ativar('nav-sccm')" id="nav-sccm-tab" data-toggle="tab" href="#nav-sccm" role="tab" aria-controls="nav-sccm" aria-selected="false"><i class="fa-solid fa-puzzle-piece"></i>&nbsp;SCCM</a>                        
+                        {% endif %}
+                        {% if ServerHost.md_database %}
+                            <a class="nav-item nav-link" onclick="ativar('nav-bancodedados')" id="nav-bancodedados-tab" data-toggle="tab" href="#nav-bancodedados" role="tab" aria-controls="nav-bancodedados" aria-selected="false"><i class="fa-solid fa-database"></i>&nbsp;Banco de dados</a>
+                        {% endif %}
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-detalhe" role="tabpanel" aria-labelledby="nav-detalhe-tab">
+
+                        <div class="container-fluid p-3" >
+                            <div class="row">
+                                <div class="col "><strong>Estado:&nbsp;</strong>{{ ServerHost.estado }}&nbsp;&nbsp;&nbsp;<strong>Região:&nbsp;</strong>{{ ServerHost.regiao }}&nbsp;&nbsp;&nbsp;<strong>Departamento:&nbsp;</strong>{{ ServerHost.dep }}</div>
+                                <div class="col ">&nbsp; </div>
+                                <div class="col-3 "><strong>Origem do dado:&nbsp;</strong> {{ ServerHost.origemdata }}</div>
+                            </div>
+                            <div class="row p-2">
+                                <div class="col"><strong>Hardware</strong></div>
+                            </div>
+                            <div class="row p-2">
+                                <div class="col-2"><img src="{% static 'imagens/cpu-32.png' %}" class="img-fluid" alt="Imagem responsiva">&nbsp;<strong>CPU:</strong>&nbsp;&nbsp;{{ ServerHost.cpu }} </div> 
+                                <div class="col-3"><img src="{% static 'imagens/ram-32.png' %}" class="img-fluid" alt="Imagem responsiva">&nbsp;<strong>Memória Ram:</strong>&nbsp;&nbsp;{{ ServerHost.memoryram }} </div> 
+                                <div class="col"><img src="{% static 'imagens/ethernet-32.png' %}" class="img-fluid" alt="Imagem responsiva">&nbsp;<strong>IP:</strong>&nbsp;&nbsp;{{ ServerHost.ipaddress }} </div> 
+                            </div>
+                            <div class="row p-2"">
+                                <div class="col "><strong>Dashboard de desempenho</strong></div>                                
+                                <div class="col-md-7 ">
+                                    <div class="row"> 
+                                        <strong>Discos:</strong>
+                                    </div>
+                                    <div class="row"> 
+                                        <div class="card-body">
+                                            <table id="datatablesSimple" class="table" >
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th>caption0</th>
+                                                        <th>deviceid0</th>  
+                                                        <th>interfacetype0</th>  
+                                                        <th>model0</th>  
+                                                        <th>size0</th>                                            
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for lsh in db_TbSccmDk %}
+                                                    <tr>
+                                                        <td><!--{{ lsh.caption0 }}--></td>
+                                                        <td><!--{{ lsh.deviceid0 }}--></td>
+                                                        <td><!--{{ lsh.interfacetype0 }}--></td>
+                                                        <td><!--{{ lsh.model0 }}--></td>
+                                                        <td><!--{{ lsh.size0 }}--></td>
+                                                    </tr>
+                                                    {% empty %}
+                                                    <tr>
+                                                        <td colspan="3">Server host não localizado</td>
+                                                    </tr>
+                                                    {% endfor %}                        
+                                                </tbody>                        
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                        
+                       
+                           
+                        </div>                        
+                        
+                    </div>
+                    <div class="tab-pane fade" id="nav-ad" role="tabpanel" aria-labelledby="nav-ad-tab">
+                        <div class="container-fluid p-3" >
+                            <h5 class="card-title">Active Directory</h5>
+                            <div class="card-body">
+                                <table id="datatablesSimple" class="table" >
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Descrição</th>
+                                            <th>Sistema Operacional</th>  
+                                            <th>Versão</th>  
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for lsh in db_activeDirectory %}
+                                        <tr>
+                                            <td><!--{{ lsh.description }}--></td>
+                                            <td><!--{{ lsh.operatingsystem }}--></td>
+                                            <td><!--{{ lsh.operatingsystemversion }}--></td>
+                                        </tr>
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="3">Server host não localizado</td>
+                                        </tr>
+                                        {% endfor %}                        
+                                    </tbody>                        
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-nutanix" role="tabpanel" aria-labelledby="nav-nutanix-tab">
+                        <div class="container-fluid p-3" >
+                            <h5 class="card-title">Nutanix</h5>
+                            <div class="card-body">
+                                <table id="datatablesSimple" class="table" >
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>vmname</th>
+                                            <th>ipaddresses</th>  
+                                            <th>memorycapacityinbytes</th>  
+                                            <th>numvcpus</th>  
+                                            <th>description</th>                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for lsh in db_nutanix %}
+                                        <tr>
+                                            <td><!--{{ lsh.vmname }}--></td>
+                                            <td><!--{{ lsh.ipaddresses }}--></td>
+                                            <td><!--{{ lsh.memorycapacityinbytes }}--></td>
+                                            <td><!--{{ lsh.numvcpus }}--></td>
+                                            <td><!--{{ lsh.description }}--></td>
+                                        </tr>
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="3">Server host não localizado</td>
+                                        </tr>
+                                        {% endfor %}                        
+                                    </tbody>                        
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-vm" role="tabpanel" aria-labelledby="nav-vm-tab">
+                        <div class="container-fluid p-3" >
+                            <h5 class="card-title">VMware</h5>
+                            <p class="card-text">Com suporte a texto embaixo, que funciona como uma introdução a um conteúdo adicional.</p>
+                            <a href="#" class="btn btn-primary">Visitar</a>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-sccm" role="tabpanel" aria-labelledby="nav-sccm-tab">
+                        <div class="container-fluid p-3"  >
+
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <!-- Primeira coluna -->
+                                        <div class="col-md-6">
+                                            <div class="flex-fill d-flex flex-column align-baseline  ">
+                                                <i class="fas fa-table me-1"></i>
+                                                <h6>Softwares instalado:</h6>
+                                            </div>
+                                        </div>                         
+                                    </div>                         
+                                </div>                         
+                                <div class="card-body">
+                                    <div class="table-responsive" style="max-height: 200px; overflow-y: auto;">
+                                        <table id="datatablesSimple" class="table" >
+                                            <thead class="thead-dark" style="position: sticky; top: 0; z-index: 1;">
+                                                <tr>
+                                                    <th>publisher0</th>
+                                                    <th>displayname0</th>  
+                                                    <th>version0</th>  
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for sccm_app  in db_TbSccmApp %}
+                                                <tr>
+                                                    <td><!--{{ sccm_app.publisher0 }}--></td>
+                                                    <td><!--{{ sccm_app.displayname0 }}--></td>
+                                                    <td><!--{{ sccm_app.version0 }}--></td>
+                                                </tr>
+                                                {% empty %}
+                                                <tr>
+                                                    <td colspan="3">Server host não localizado</td>
+                                                </tr>
+                                                {% endfor %}                        
+                                            </tbody>                        
+                                        </table>
+                                    </div>
+                                </div>                                                     
+                            </div>                         
+
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <!-- Primeira coluna -->
+                                        <div class="col-md-6">
+                                            <div class="flex-fill d-flex flex-column align-baseline  ">
+                                                <i class="fas fa-table me-1"></i>
+                                                <h6>Local de instalação do software:</h6>
+                                            </div>
+                                        </div>                         
+                                    </div>                         
+                                </div>                         
+                                <div class="card-body">
+                                    <div class="table-responsive" style="max-height: 200px; overflow-y: auto;">
+                                        <table id="datatablesSimple" class="table" >
+                                            <thead class="thead-dark" style="position: sticky; top: 0; z-index: 1;">
+                                                <tr>
+                                                    <th>companyname</th>
+                                                    <th>productname</th>  
+                                                    <th>filename</th>  
+                                                    <th>fileversion</th>  
+                                                    <th>filepath</th>  
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for sccm_sf  in db_TbSccmSf %}
+                                                <tr>
+                                                    <td><!--{{ sccm_sf.companyname }}--></td>
+                                                    <td><!--{{ sccm_sf.productname }}--></td>
+                                                    <td><!--{{ sccm_sf.filename }}--></td>
+                                                    <td><!--{{ sccm_sf.fileversion }}--></td>
+                                                    <td><!--{{ sccm_sf.filepath }}--></td>
+                                                </tr>
+                                                {% empty %}
+                                                <tr>
+                                                    <td colspan="3">Server host não localizado</td>
+                                                </tr>
+                                                {% endfor %}                        
+                                            </tbody>                        
+                                        </table>
+                                    </div>
+                                </div>                                                     
+                            </div>                         
+                            
+                        </div>  
+                    </div>                  
+                    <div class="tab-pane fade" id="nav-bancodedados" role="tabpanel" aria-labelledby="nav-bancodedados-tab">
+                        <div class="container-fluid p-3" >
+                            <h5 class="card-title">Banco de dados</h5>
+                            <p class="card-text">Com suporte a texto embaixo, que funciona como uma introdução a um conteúdo adicional.</p>
+                            <a href="#" class="btn btn-primary">Visitar</a>
+                        </div>                            
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            const ativar = (panelId) => {
+                // Remover a classe 'active' de todos os itens da navegação
+                let itens = document.getElementsByClassName("nav-item");
+                for (let i = 0; i < itens.length; i++) {
+                    itens[i].classList.remove('active');
+                }
+                // Adicionar a classe 'active' apenas ao elemento clicado
+                let elemento = document.getElementById(panelId + '-tab');
+                elemento.classList.add("active");
+        
+                // Remover as classes 'show' e 'active' de todos os painéis
+                let panels = document.getElementsByClassName("tab-pane");
+                for (let i = 0; i < panels.length; i++) {
+                    panels[i].classList.remove('show');
+                    panels[i].classList.remove('active');
+                }
+        
+                // Adicionar as classes 'show' e 'active' apenas ao painel correspondente ao elemento clicado
+                let panel = document.getElementById(panelId);
+                if (panel) {
+                    panel.classList.add('show');
+                    panel.classList.add('active');
+                }
+            }
+        </script>
+        
+        
+    </div>
+    <script src="{% static 'js/jquery-3.7.1.min.js' %}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/popper.mim.js' %}" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous" ></script>
+    <script src="{% static 'js/bootstrap.mim.js' %}" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    
+
+<main
+
+{% endblock content1 %}
+{% else %}
+    {% block content2 %}
+        <div id="apresentacao-container"></div>
+    {% endblock content2 %}
+
+{% endif %}

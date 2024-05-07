@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% if request.user.is_authenticated %}
+    {% block content1 %}
+        <div id="apresentacao-container"></div>
+    {% endblock content1 %}
+{% else %}
+    {% block content2 %}
+    <div id="apresentacao-container"></div>
+    {% endblock content2 %}
+
+{% endif %}
