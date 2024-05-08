@@ -7,7 +7,8 @@ from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
 from django.views.generic import TemplateView
 from django.views.generic.list import ListView
 
-from .models import vw_ServerHost
+from ..sds_active_directory.models import AdComputer
+from .models import vw_ServerHost, TbDatabaseInstancia, TbAdComputer, TbNtVm, TbSccmDk, TbSccmApp, TbSccmSf
 
 
 class ServerHostList(GroupRequiredMixin, LoginRequiredMixin, ListView):
@@ -56,13 +57,13 @@ class ServerHostDetalhe(GroupRequiredMixin, LoginRequiredMixin, ListView):
         context['ServerHost'] = modulo_config
         
         # Filtra as outras classes pelo id_modulo correspondente
-        #context['detalhe_ad'] = AdComputer.objects.filter(name__iexact=modulo_config.hostname)
-        #context['db_instancia'] = TbDatabaseInstancia.objects.filter(id_serverhost=modulo_config.id_serverhost)        
-        #context['db_activeDirectory'] = TbAdComputer.objects.filter(id_serverhost=modulo_config.id_serverhost)
-        #context['db_nutanix'] = TbNtVm.objects.filter(id_serverhost=modulo_config.id_serverhost)
-        #context['db_TbSccmDk'] = TbSccmDk.objects.filter(id_serverhost=modulo_config.id_serverhost) 
-        #context['db_TbSccmApp'] = TbSccmApp.objects.filter(id_serverhost=modulo_config.id_serverhost) 
-        #context['db_TbSccmSf'] = TbSccmSf.objects.filter(id_serverhost=modulo_config.id_serverhost) 
+        context['detalhe_ad'] = AdComputer.objects.filter(name__iexact=modulo_config.hostname)
+        context['db_instancia'] = TbDatabaseInstancia.objects.filter(id_serverhost=modulo_config.id_serverhost)        
+        context['db_activeDirectory'] = TbAdComputer.objects.filter(id_serverhost=modulo_config.id_serverhost)
+        context['db_nutanix'] = TbNtVm.objects.filter(id_serverhost=modulo_config.id_serverhost)
+        context['db_TbSccmDk'] = TbSccmDk.objects.filter(id_serverhost=modulo_config.id_serverhost) 
+        context['db_TbSccmApp'] = TbSccmApp.objects.filter(id_serverhost=modulo_config.id_serverhost) 
+        context['db_TbSccmSf'] = TbSccmSf.objects.filter(id_serverhost=modulo_config.id_serverhost) 
         
         return context    
 

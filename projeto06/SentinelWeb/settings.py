@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap4',
     'app.sds_web',
+    'app.sds_active_directory',
+    'app.sds_database',
 ]
 
 MIDDLEWARE = [
@@ -59,7 +61,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': ['app/sds_web/templates',
-                'app/sds_inventario/templates'],
+                'app/sds_inventario/templates',
+                'app/sds_active_directory/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -86,7 +89,7 @@ DATABASES = {
         'NAME': 'sds_web',
         'USER': 'Sentinel',
         'PASSWORD':'Sentinel',
-        'HOST':'192.168.1.5',
+        'HOST':'127.0.0.1',
         'PORT':'5542',
     }, 
     'sds_inventario_db': {
@@ -94,16 +97,32 @@ DATABASES = {
         'NAME': 'sds_inventario',
         'USER': 'Sentinel',
         'PASSWORD':'Sentinel',
-        'HOST':'192.168.1.5',
+        'HOST':'127.0.0.1',
         'PORT':'5542',
     },    
-
+    'sds_int_active_directory_db': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'sds_int_active_directory',
+        'USER': 'Sentinel',
+        'PASSWORD':'Sentinel',
+        'HOST':'127.0.0.1',
+        'PORT':'5542',
+    },     
+    'sds_database_db': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'sds_database',
+        'USER': 'Sentinel',
+        'PASSWORD':'Sentinel',
+        'HOST':'127.0.0.1',
+        'PORT':'5542',
+    },           
 }
 
 
 # Rotiador para aplicação funcionar com mutiplas bases de dados.
 DATABASE_ROUTERS = ['routers.db_routers.AuthRouter',
-'routers.db_routers.SdsWebRouter','routers.db_routers.SdsInventarioRouter',]
+'routers.db_routers.SdsWebRouter','routers.db_routers.SdsInventarioRouter',
+'routers.db_routers.SdsIntActiveDirectoryRouter',]
 
 
 # Password validation

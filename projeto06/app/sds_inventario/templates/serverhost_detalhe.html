@@ -60,16 +60,16 @@
                     <div>&nbsp;</div>
                 </div>
                 <div class="row px-4">
-                    <div class="col-xl-3 h-100" style="height: 32px;">
+                    <div class="col-xl-2 h-100" style="height: 32px;">
                         <p class="card-text"><strong>Trilha:</strong> {{ ServerHost.trilha }} </p>
                     </div>
-                    <div class="col-xl-3 h-100" style="height: 32px;">
+                    <div class="col-xl-2 h-100" style="height: 32px;">
                         <p class="card-text"><strong>Tipo Maquina:</strong> {{ ServerHost.fisicovm }} </p>
                     </div>
-                    <div class="col-xl-3 h-100" style="height: 32px;">
+                    <div class="col-xl-4 h-100" style="height: 32px;">
                         <p class="card-text"><strong>Descrição:</strong> {{ ServerHost.descricao }} </p>
                     </div>
-                    <div class="col-xl-3 h-100" style="height: 32px;">
+                    <div class="col-xl-4 h-100" style="height: 32px;">
                         <p class="card-text"><strong>Sistema operacional:</strong> {{ ServerHost.sistemaoperaciona }} </p>
                     </div>
                 </div>
@@ -137,11 +137,11 @@
                                                 <tbody>
                                                     {% for lsh in db_TbSccmDk %}
                                                     <tr>
-                                                        <td><!--{{ lsh.caption0 }}--></td>
-                                                        <td><!--{{ lsh.deviceid0 }}--></td>
-                                                        <td><!--{{ lsh.interfacetype0 }}--></td>
-                                                        <td><!--{{ lsh.model0 }}--></td>
-                                                        <td><!--{{ lsh.size0 }}--></td>
+                                                        <td>{{ lsh.caption0 }}</td>
+                                                        <td>{{ lsh.deviceid0 }}</td>
+                                                        <td>{{ lsh.interfacetype0 }}</td>
+                                                        <td>{{ lsh.model0 }}</td>
+                                                        <td>{{ lsh.size0 }}</td>
                                                     </tr>
                                                     {% empty %}
                                                     <tr>
@@ -174,9 +174,9 @@
                                     <tbody>
                                         {% for lsh in db_activeDirectory %}
                                         <tr>
-                                            <td><!--{{ lsh.description }}--></td>
-                                            <td><!--{{ lsh.operatingsystem }}--></td>
-                                            <td><!--{{ lsh.operatingsystemversion }}--></td>
+                                            <td>{{ lsh.description }}</td>
+                                            <td>{{ lsh.operatingsystem }}</td>
+                                            <td>{{ lsh.operatingsystemversion }}</td>
                                         </tr>
                                         {% empty %}
                                         <tr>
@@ -205,11 +205,11 @@
                                     <tbody>
                                         {% for lsh in db_nutanix %}
                                         <tr>
-                                            <td><!--{{ lsh.vmname }}--></td>
-                                            <td><!--{{ lsh.ipaddresses }}--></td>
-                                            <td><!--{{ lsh.memorycapacityinbytes }}--></td>
-                                            <td><!--{{ lsh.numvcpus }}--></td>
-                                            <td><!--{{ lsh.description }}--></td>
+                                            <td>{{ lsh.vmname }}</td>
+                                            <td>{{ lsh.ipaddresses }}</td>
+                                            <td>{{ lsh.memorycapacityinbytes }}</td>
+                                            <td>{{ lsh.numvcpus }}</td>
+                                            <td>{{ lsh.description }}</td>
                                         </tr>
                                         {% empty %}
                                         <tr>
@@ -237,8 +237,7 @@
                                         <!-- Primeira coluna -->
                                         <div class="col-md-6">
                                             <div class="flex-fill d-flex flex-column align-baseline  ">
-                                                <i class="fas fa-table me-1"></i>
-                                                <h6>Softwares instalado:</h6>
+                                                <h6><i class="fa-brands fa-codepen"></i>&nbsp;Softwares instalado:</h6>
                                             </div>
                                         </div>                         
                                     </div>                         
@@ -256,9 +255,9 @@
                                             <tbody>
                                                 {% for sccm_app  in db_TbSccmApp %}
                                                 <tr>
-                                                    <td><!--{{ sccm_app.publisher0 }}--></td>
-                                                    <td><!--{{ sccm_app.displayname0 }}--></td>
-                                                    <td><!--{{ sccm_app.version0 }}--></td>
+                                                    <td>{{ sccm_app.publisher0 }}</td>
+                                                    <td>{{ sccm_app.displayname0 }}</td>
+                                                    <td>{{ sccm_app.version0 }}</td>
                                                 </tr>
                                                 {% empty %}
                                                 <tr>
@@ -277,8 +276,7 @@
                                         <!-- Primeira coluna -->
                                         <div class="col-md-6">
                                             <div class="flex-fill d-flex flex-column align-baseline  ">
-                                                <i class="fas fa-table me-1"></i>
-                                                <h6>Local de instalação do software:</h6>
+                                                <h6><i class="fa-brands fa-instalod"></i>&nbsp;Local de instalação do software:</h6>
                                             </div>
                                         </div>                         
                                     </div>                         
@@ -298,11 +296,11 @@
                                             <tbody>
                                                 {% for sccm_sf  in db_TbSccmSf %}
                                                 <tr>
-                                                    <td><!--{{ sccm_sf.companyname }}--></td>
-                                                    <td><!--{{ sccm_sf.productname }}--></td>
-                                                    <td><!--{{ sccm_sf.filename }}--></td>
-                                                    <td><!--{{ sccm_sf.fileversion }}--></td>
-                                                    <td><!--{{ sccm_sf.filepath }}--></td>
+                                                    <td>{{ sccm_sf.companyname }}</td>
+                                                    <td>{{ sccm_sf.productname }}</td>
+                                                    <td>{{ sccm_sf.filename }}</td>
+                                                    <td>{{ sccm_sf.fileversion }}</td>
+                                                    <td>{{ sccm_sf.filepath }}</td>
                                                 </tr>
                                                 {% empty %}
                                                 <tr>
