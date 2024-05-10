@@ -272,17 +272,15 @@
                                         <table id="datatablesSimple" class="table" >
                                             <thead class="thead-dark" style="position: sticky; top: 0; z-index: 1;">
                                                 <tr>
-                                                    <th>publisher0</th>
-                                                    <th>displayname0</th>  
-                                                    <th>version0</th>  
+                                                    <th>Fabricante</th>
+                                                    <th>Software</th>  
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {% for sccm_app  in db_TbSccmApp %}
+                                                {% for sccm_sf  in db_VwSoftware %}
                                                 <tr>
-                                                    <td>{{ sccm_app.publisher0 }}</td>
-                                                    <td>{{ sccm_app.displayname0 }}</td>
-                                                    <td>{{ sccm_app.version0 }}</td>
+                                                    <td>{{ sccm_sf.fabricante }}</td>
+                                                    <td>{{ sccm_sf.software }}</td>
                                                 </tr>
                                                 {% empty %}
                                                 <tr>
@@ -310,21 +308,17 @@
                                         <table id="datatablesSimple" class="table" >
                                             <thead class="thead-dark" style="position: sticky; top: 0; z-index: 1;">
                                                 <tr>
-                                                    <th>companyname</th>
-                                                    <th>productname</th>  
-                                                    <th>filename</th>  
-                                                    <th>fileversion</th>  
-                                                    <th>filepath</th>  
+                                                    <th>Arquivo executavel</th>
+                                                    <th>Versão</th>  
+                                                    <th>Local de instalação</th> 
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {% for sccm_sf  in db_TbSccmSf %}
+                                                {% for sccm_sf  in db_VwSoftwareFile %}
                                                 <tr>
-                                                    <td>{{ sccm_sf.companyname }}</td>
-                                                    <td>{{ sccm_sf.productname }}</td>
-                                                    <td>{{ sccm_sf.filename }}</td>
-                                                    <td>{{ sccm_sf.fileversion }}</td>
-                                                    <td>{{ sccm_sf.filepath }}</td>
+                                                    <td>{{ sccm_sf.fileexec }}</td>
+                                                    <td>{{ sccm_sf.version }}</td>
+                                                    <td>{{ sccm_sf.localinstall }}</td>
                                                 </tr>
                                                 {% empty %}
                                                 <tr>

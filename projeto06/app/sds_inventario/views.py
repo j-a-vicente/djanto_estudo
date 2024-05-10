@@ -8,6 +8,9 @@ from django.views.generic import TemplateView
 from django.views.generic.list import ListView
 
 from ..sds_active_directory.models import AdComputer
+
+from ..sds_sccm.models import VwSoftware, VwSoftwareFile
+
 from .models import vw_ServerHost, TbDatabaseInstancia, TbAdComputer, TbNtVm, TbSccmDk, TbSccmApp, TbSccmSf
 
 
@@ -64,27 +67,34 @@ class ServerHostDetalhe(GroupRequiredMixin, LoginRequiredMixin, ListView):
         context['db_nutanix'] = TbNtVm.objects.filter(id_serverhost=modulo_config.id_serverhost)
         context['db_TbSccmDk'] = TbSccmDk.objects.filter(id_serverhost=modulo_config.id_serverhost) 
 
-        # Paginação para TbSccmApp
-        tb_sccm_app_list = TbSccmApp.objects.filter(id_serverhost=modulo_config.id_serverhost)
-        paginator = Paginator(tb_sccm_app_list, self.paginate_by)
-        page = self.request.GET.get('page')
-        try:
-            context['db_TbSccmApp'] = paginator.page(page)
-        except PageNotAnInteger:
-            context['db_TbSccmApp'] = paginator.page(1)
-        except EmptyPage:
-            context['db_TbSccmApp'] = paginator.page(paginator.num_pages)
 
-        # Paginação para TbSccmSf
-        tb_sccm_sf_list = TbSccmSf.objects.filter(id_serverhost=modulo_config.id_serverhost)
+        # Paginação para VwSoftware
+        tb_sccm_sf_list = VwSoftware.objects.filter(serverhost=modulo_config.hostname)
         paginator = Paginator(tb_sccm_sf_list, self.paginate_by)
         page = self.request.GET.get('page')
         try:
-            context['db_TbSccmSf'] = paginator.page(page)
+            context['db_VwSoftware'] = paginator.page(page)
         except PageNotAnInteger:
-            context['db_TbSccmSf'] = paginator.page(1)
+            context['db_VwSoftware'] = paginator.page(1)
         except EmptyPage:
-            context['db_TbSccmSf'] = paginator.page(paginator.num_pages)
+            context['db_VwSoftware'] = paginator.page(paginator.num_pages)
+
+
+        # Paginação para VwSoftwareFile
+        # Obtém uma lista dos id_software dos objetos em tb_sccm_sf_list
+        id_software_list = [obj.id_software for obj in tb_sccm_sf_list]
+
+        # Filtra VwSoftwareFile usando os id_software obtidos
+        tb_sccm_app_list = VwSoftwareFile.objects.filter(id_software__in=id_software_list)        
+        #tb_sccm_app_list = VwSoftwareFile.objects.filter(id_software=tb_sccm_sf_list.id_software)
+        paginator = Paginator(tb_sccm_app_list, self.paginate_by)
+        page = self.request.GET.get('page')
+        try:
+            context['db_VwSoftwareFile'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['db_VwSoftwareFile'] = paginator.page(1)
+        except EmptyPage:
+            context['db_VwSoftwareFile'] = paginator.page(paginator.num_pages)
 
 
 #        context['db_TbSccmApp'] = TbSccmApp.objects.filter(id_serverhost=modulo_config.id_serverhost) 

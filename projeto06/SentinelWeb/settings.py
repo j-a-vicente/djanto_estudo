@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'app.sds_web',
     'app.sds_active_directory',
     'app.sds_database',
+    'app.sds_sccm',
 ]
 
 MIDDLEWARE = [
@@ -62,7 +63,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': ['app/sds_web/templates',
                 'app/sds_inventario/templates',
-                'app/sds_active_directory/templates'],
+                'app/sds_active_directory/templates'
+                'app/sds_sccm/templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -90,7 +92,7 @@ DATABASES = {
         'USER': 'Sentinel',
         'PASSWORD':'Sentinel',
         'HOST':'192.168.1.5',
-        'PORT':'5542',
+        'PORT':'5435',
     }, 
     'sds_inventario_db': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -115,14 +117,22 @@ DATABASES = {
         'PASSWORD':'Sentinel',
         'HOST':'192.168.1.5',
         'PORT':'5542',
-    },           
+    },      
+    'sds_sccm_db': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'sds_sccm',
+        'USER': 'Sentinel',
+        'PASSWORD':'Sentinel',
+        'HOST':'192.168.1.5',
+        'PORT':'5435',
+    },          
 }
 
 
 # Rotiador para aplicação funcionar com mutiplas bases de dados.
 DATABASE_ROUTERS = ['routers.db_routers.AuthRouter',
 'routers.db_routers.SdsWebRouter','routers.db_routers.SdsInventarioRouter',
-'routers.db_routers.SdsIntActiveDirectoryRouter',]
+'routers.db_routers.SdsIntActiveDirectoryRouter','routers.db_routers.SdsSccmRouter',]
 
 
 # Password validation
