@@ -77,8 +77,8 @@
             </div>
         </div>
 
-        <div class="container-fluid px-4" style="height: calc(95vh - 100px);">
-            <div class="card" style="height: calc(95vh - 100px);">
+        <div class="container-fluid px-4" style="height: calc(88vh - 100px);">
+            <div class="card" style="height: calc(87vh - 100px);">
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <a class="nav-item nav-link active" onclick="ativar('nav-detalhe')" id="nav-detalhe-tab" data-toggle="tab" href="#nav-detalhe" role="tab" aria-controls="nav-detalhe" aria-selected="true"><i class="fa-solid fa-layer-group"></i>&nbsp;Detalhe</a>
@@ -233,17 +233,42 @@
 
                             <div class="card mb-4">
                                 <div class="card-header">
-                                    <div class="row">
+                                    <div class="row align-items-center">
                                         <!-- Primeira coluna -->
-                                        <div class="col-md-6">
-                                            <div class="flex-fill d-flex flex-column align-baseline  ">
+                                        <div class="col-md-3">
+                                            <div class="flex-fill d-flex flex-column align-baseline">
                                                 <h6><i class="fa-brands fa-codepen"></i>&nbsp;Softwares instalado:</h6>
                                             </div>
                                         </div>                         
+                                        <div class="col-md-6">
+                                            <div class="flex-fill d-flex flex-column align-baseline">
+                                                <nav aria-label="paginacao-sccm-db_TbSccmApp">
+                                                    <ul class="pagination justify-content-center align-self-center">
+                                                        <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+                                                        <li class="page-item active"><span class="page-link">1<span class="sr-only">(atual)</span></span></li>
+                                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                        <li class="page-item"><a class="page-link" href="#">Próximo</a></li>
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                        </div>                         
+                                        <div class="col-md-3">
+                                            <div class="flex-fill d-flex flex-column align-baseline">
+                                                <form class="d-none d-md-inline-block">
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" placeholder="Pesquisar aqui.." aria-label="Pesquisar aqui.."
+                                                            aria-describedby="btnNavbarSearch" />
+                                                        <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>                         
+
                                     </div>                         
                                 </div>                         
                                 <div class="card-body">
-                                    <div class="table-responsive" style="max-height: 200px; overflow-y: auto;">
+                                    <div class="table-responsive" style="max-height: 255px; overflow-y: auto;">
                                         <table id="datatablesSimple" class="table" >
                                             <thead class="thead-dark" style="position: sticky; top: 0; z-index: 1;">
                                                 <tr>
@@ -265,7 +290,7 @@
                                                 </tr>
                                                 {% endfor %}                        
                                             </tbody>                        
-                                        </table>
+                                        </table>                                       
                                     </div>
                                 </div>                                                     
                             </div>                         
@@ -274,15 +299,14 @@
                                 <div class="card-header">
                                     <div class="row">
                                         <!-- Primeira coluna -->
-                                        <div class="col-md-6">
-                                            <div class="flex-fill d-flex flex-column align-baseline  ">
+                                            <div class="flex-fill d-flex flex-column align-baseline">
                                                 <h6><i class="fa-brands fa-instalod"></i>&nbsp;Local de instalação do software:</h6>
                                             </div>
-                                        </div>                         
+
                                     </div>                         
                                 </div>                         
                                 <div class="card-body">
-                                    <div class="table-responsive" style="max-height: 200px; overflow-y: auto;">
+                                    <div class="table-responsive" style="max-height: 255px; overflow-y: auto;">
                                         <table id="datatablesSimple" class="table" >
                                             <thead class="thead-dark" style="position: sticky; top: 0; z-index: 1;">
                                                 <tr>

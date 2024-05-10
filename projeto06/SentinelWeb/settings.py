@@ -89,7 +89,7 @@ DATABASES = {
         'NAME': 'sds_web',
         'USER': 'Sentinel',
         'PASSWORD':'Sentinel',
-        'HOST':'127.0.0.1',
+        'HOST':'192.168.1.5',
         'PORT':'5542',
     }, 
     'sds_inventario_db': {
@@ -97,7 +97,7 @@ DATABASES = {
         'NAME': 'sds_inventario',
         'USER': 'Sentinel',
         'PASSWORD':'Sentinel',
-        'HOST':'127.0.0.1',
+        'HOST':'192.168.1.5',
         'PORT':'5542',
     },    
     'sds_int_active_directory_db': {
@@ -105,7 +105,7 @@ DATABASES = {
         'NAME': 'sds_int_active_directory',
         'USER': 'Sentinel',
         'PASSWORD':'Sentinel',
-        'HOST':'127.0.0.1',
+        'HOST':'192.168.1.5',
         'PORT':'5542',
     },     
     'sds_database_db': {
@@ -113,7 +113,7 @@ DATABASES = {
         'NAME': 'sds_database',
         'USER': 'Sentinel',
         'PASSWORD':'Sentinel',
-        'HOST':'127.0.0.1',
+        'HOST':'192.168.1.5',
         'PORT':'5542',
     },           
 }

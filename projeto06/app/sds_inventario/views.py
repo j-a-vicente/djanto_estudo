@@ -48,6 +48,7 @@ class ServerHostDetalhe(GroupRequiredMixin, LoginRequiredMixin, ListView):
     group_required = [u"Administradores", u"Monitor", u"Operador", u"Visitante"]
     template_name = 'serverhost_detalhe.html'  
     model = vw_ServerHost
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -62,8 +63,32 @@ class ServerHostDetalhe(GroupRequiredMixin, LoginRequiredMixin, ListView):
         context['db_activeDirectory'] = TbAdComputer.objects.filter(id_serverhost=modulo_config.id_serverhost)
         context['db_nutanix'] = TbNtVm.objects.filter(id_serverhost=modulo_config.id_serverhost)
         context['db_TbSccmDk'] = TbSccmDk.objects.filter(id_serverhost=modulo_config.id_serverhost) 
-        context['db_TbSccmApp'] = TbSccmApp.objects.filter(id_serverhost=modulo_config.id_serverhost) 
-        context['db_TbSccmSf'] = TbSccmSf.objects.filter(id_serverhost=modulo_config.id_serverhost) 
+
+        # Paginação para TbSccmApp
+        tb_sccm_app_list = TbSccmApp.objects.filter(id_serverhost=modulo_config.id_serverhost)
+        paginator = Paginator(tb_sccm_app_list, self.paginate_by)
+        page = self.request.GET.get('page')
+        try:
+            context['db_TbSccmApp'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['db_TbSccmApp'] = paginator.page(1)
+        except EmptyPage:
+            context['db_TbSccmApp'] = paginator.page(paginator.num_pages)
+
+        # Paginação para TbSccmSf
+        tb_sccm_sf_list = TbSccmSf.objects.filter(id_serverhost=modulo_config.id_serverhost)
+        paginator = Paginator(tb_sccm_sf_list, self.paginate_by)
+        page = self.request.GET.get('page')
+        try:
+            context['db_TbSccmSf'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['db_TbSccmSf'] = paginator.page(1)
+        except EmptyPage:
+            context['db_TbSccmSf'] = paginator.page(paginator.num_pages)
+
+
+#        context['db_TbSccmApp'] = TbSccmApp.objects.filter(id_serverhost=modulo_config.id_serverhost) 
+#        context['db_TbSccmSf'] = TbSccmSf.objects.filter(id_serverhost=modulo_config.id_serverhost) 
         
         return context    
 
