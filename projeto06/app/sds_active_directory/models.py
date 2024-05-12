@@ -28,7 +28,7 @@ class AdComputer(models.Model):
     class Meta:
         managed = False
         db_table = 'ad_computer'
-        app_label = 'sds_int_active_directory'
+        app_label = 'sds_active_directory'
 
 
 class AdComputerDns(models.Model):
@@ -39,7 +39,7 @@ class AdComputerDns(models.Model):
     class Meta:
         managed = False
         db_table = 'ad_computer_dns'
-        app_label = 'sds_int_active_directory'
+        app_label = 'sds_active_directory'
 
 
 class AdContact(models.Model):
@@ -59,7 +59,7 @@ class AdContact(models.Model):
     class Meta:
         managed = False
         db_table = 'ad_contact'
-        app_label = 'sds_int_active_directory'
+        app_label = 'sds_active_directory'
 
 
 class AdDomainController(models.Model):
@@ -75,7 +75,7 @@ class AdDomainController(models.Model):
     class Meta:
         managed = False
         db_table = 'ad_domain_controller'
-        app_label = 'sds_int_active_directory'
+        app_label = 'sds_active_directory'
 
 
 class AdGpo(models.Model):
@@ -92,7 +92,7 @@ class AdGpo(models.Model):
     class Meta:
         managed = False
         db_table = 'ad_gpo'
-        app_label = 'sds_int_active_directory'
+        app_label = 'sds_active_directory'
 
 
 class AdGroup(models.Model):
@@ -113,7 +113,7 @@ class AdGroup(models.Model):
     class Meta:
         managed = False
         db_table = 'ad_group'
-        app_label = 'sds_int_active_directory'
+        app_label = 'sds_active_directory'
 
 
 class AdGroupUser(models.Model):
@@ -124,7 +124,7 @@ class AdGroupUser(models.Model):
     class Meta:
         managed = False
         db_table = 'ad_group_user'
-        app_label = 'sds_int_active_directory'
+        app_label = 'sds_active_directory'
 
 
 class AdOu(models.Model):
@@ -140,7 +140,7 @@ class AdOu(models.Model):
     class Meta:
         managed = False
         db_table = 'ad_ou'
-        app_label = 'sds_int_active_directory'
+        app_label = 'sds_active_directory'
 
 
 class AdUser(models.Model):
@@ -177,4 +177,4 @@ class AdUser(models.Model):
     class Meta:
         managed = False
         db_table = 'ad_user'
-        app_label = 'sds_int_active_directory'
+        app_label = 'sds_active_directory'

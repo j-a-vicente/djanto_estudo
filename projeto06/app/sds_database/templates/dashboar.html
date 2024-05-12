@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% load crispy_forms_tags %}
+{% bootstrap_javascript %}
+
+
+{% if request.user.is_authenticated %}
+    {% block content1 %}
+
+<main>
+    <title> Server Host {{ServerHost.hostname}} </title>
+    
+    <div class="container-fluid px-4">
+        <div class="row" mx-md-n5>
+            &nbsp;
+        </div>
+        
+        <!--Cabeçalho: Modulo-->
+        <div class="container-fluid px-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <div class="row">
+                        <!-- Primeira coluna -->
+                        <div class="col-md-6">
+                            <div class="flex-fill d-flex flex-column align-baseline  ">
+                                <h5><i class="fa-solid fa-database"></i>&nbsp;Banco de dados </h5>
+                            </div>
+                        </div>
+                        <!-- Segunda coluna -->
+                        <div class="col-md-6">
+                            <div class="d-flex flex-row-reverse">
+                                <a id="sds_integrator_ModuloJobSchedule_Link" class="btn btn-primary btn-sm" href="">Voltar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    
+</main>

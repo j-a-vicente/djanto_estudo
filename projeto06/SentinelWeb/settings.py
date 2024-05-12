@@ -100,15 +100,15 @@ DATABASES = {
         'USER': 'Sentinel',
         'PASSWORD':'Sentinel',
         'HOST':'192.168.1.5',
-        'PORT':'5542',
+        'PORT':'5435',
     },    
-    'sds_int_active_directory_db': {
+    'sds_active_directory_db': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'sds_int_active_directory',
+        'NAME': 'sds_active_directory',
         'USER': 'Sentinel',
         'PASSWORD':'Sentinel',
         'HOST':'192.168.1.5',
-        'PORT':'5542',
+        'PORT':'5435',
     },     
     'sds_database_db': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -116,7 +116,7 @@ DATABASES = {
         'USER': 'Sentinel',
         'PASSWORD':'Sentinel',
         'HOST':'192.168.1.5',
-        'PORT':'5542',
+        'PORT':'5435',
     },      
     'sds_sccm_db': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -132,7 +132,7 @@ DATABASES = {
 # Rotiador para aplicação funcionar com mutiplas bases de dados.
 DATABASE_ROUTERS = ['routers.db_routers.AuthRouter',
 'routers.db_routers.SdsWebRouter','routers.db_routers.SdsInventarioRouter',
-'routers.db_routers.SdsIntActiveDirectoryRouter','routers.db_routers.SdsSccmRouter',]
+'routers.db_routers.SdsActiveDirectoryRouter','routers.db_routers.SdsSccmRouter',]
 
 
 # Password validation

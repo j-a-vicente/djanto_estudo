@@ -22,12 +22,18 @@
                 collapseElement.classList.add("show");
             });
         </script>
+        
 
 <body class="sb-nav-fixed"></body>
     <link href="{% static 'css/bootstrap.mim.css' %}" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{% static 'js/app.js' %}"></script>
-
+    <style>
+        .inline-content {
+            white-space: nowrap; /* Impede a quebra de linha dentro do elemento */
+            overflow-x: auto; /* Adiciona rolagem horizontal se o conteúdo exceder a largura */
+        }
+    </style>
     
 <main>
     <title> Server Host {{ServerHost.hostname}} </title>
@@ -117,45 +123,48 @@
                                 <div class="col"><img src="{% static 'imagens/ethernet-32.png' %}" class="img-fluid" alt="Imagem responsiva">&nbsp;<strong>IP:</strong>&nbsp;&nbsp;{{ ServerHost.ipaddress }} </div> 
                             </div>
                             <div class="row p-2"">
-                                <div class="col "><strong>Dashboard de desempenho</strong></div>                                
-                                <div class="col-md-7 ">
+                                <div class="col-md">
                                     <div class="row"> 
                                         <strong>Discos:</strong>
                                     </div>
                                     <div class="row"> 
-                                        <div class="card-body">
-                                            <table id="datatablesSimple" class="table" >
-                                                <thead class="thead-dark">
-                                                    <tr>
-                                                        <th>caption0</th>
-                                                        <th>deviceid0</th>  
-                                                        <th>interfacetype0</th>  
-                                                        <th>model0</th>  
-                                                        <th>size0</th>                                            
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {% for lsh in db_TbSccmDk %}
-                                                    <tr>
-                                                        <td>{{ lsh.caption0 }}</td>
-                                                        <td>{{ lsh.deviceid0 }}</td>
-                                                        <td>{{ lsh.interfacetype0 }}</td>
-                                                        <td>{{ lsh.model0 }}</td>
-                                                        <td>{{ lsh.size0 }}</td>
-                                                    </tr>
-                                                    {% empty %}
-                                                    <tr>
-                                                        <td colspan="3">Server host não localizado</td>
-                                                    </tr>
-                                                    {% endfor %}                        
-                                                </tbody>                        
-                                            </table>
+                                        <div class="card-body inline-content">
+                                            {% for lsh in db_TbSccmDk %}
+                                                
+                                                <i class="fa-solid fa-hard-drive"></i>&nbsp;&nbsp;<strong>HD:</strong>&nbsp;{{ lsh.deviceid0 }}&nbsp;<strong>Tamanho:</strong>&nbsp;{{ lsh.size0 }}&nbsp;&nbsp;&nbsp;
+                                                
+                                            {% empty %}
+                                            <div>Server host não localizado</div>
+                                            {% endfor %}                        
+                                            
                                         </div>
                                     </div>
                                 </div>
-                            </div>                        
-                       
-                           
+                            </div>    
+
+
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <i class="fas fa-chart-area me-1"></i>
+                                            Uso de CPU
+                                        </div>
+                                        <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                                    </div>
+                                </div> 
+                                <div class="col-xl-6">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <i class="fas fa-chart-bar me-1"></i>
+                                            Uso de Memória
+                                        </div>
+                                        <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                                    </div>
+                                </div>
+                            </div>    
+                            
+                            
                         </div>                        
                         
                     </div>
