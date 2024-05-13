@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('app.sds_web.urls')),
     path('sds_inventario/',include('app.sds_inventario.urls')),
+    path('sds_database/',include('app.sds_database.urls')),
 ]

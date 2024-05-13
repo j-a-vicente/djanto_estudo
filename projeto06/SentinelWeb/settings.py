@@ -132,7 +132,8 @@ DATABASES = {
 # Rotiador para aplicação funcionar com mutiplas bases de dados.
 DATABASE_ROUTERS = ['routers.db_routers.AuthRouter',
 'routers.db_routers.SdsWebRouter','routers.db_routers.SdsInventarioRouter',
-'routers.db_routers.SdsActiveDirectoryRouter','routers.db_routers.SdsSccmRouter',]
+'routers.db_routers.SdsActiveDirectoryRouter','routers.db_routers.SdsSccmRouter',
+'routers.db_routers.SdsDataBaseRouter',]
 
 
 # Password validation

@@ -23,7 +23,6 @@ class Basededados(models.Model):
     class Meta:
         managed = False
         db_table = 'basededados'
-        app_label = 'sds_database'  
 
 
 class Bdtabela(models.Model):
@@ -37,7 +36,6 @@ class Bdtabela(models.Model):
     class Meta:
         managed = False
         db_table = 'bdtabela'
-        app_label = 'sds_database'  
 
 
 class Bdtamanho(models.Model):
@@ -49,7 +47,6 @@ class Bdtamanho(models.Model):
     class Meta:
         managed = False
         db_table = 'bdtamanho'
-        app_label = 'sds_database'  
 
 
 class Cluster(models.Model):
@@ -64,7 +61,6 @@ class Cluster(models.Model):
     class Meta:
         managed = False
         db_table = 'cluster'
-        app_label = 'sds_database'  
 
 
 class Clusterno(models.Model):
@@ -76,7 +72,6 @@ class Clusterno(models.Model):
     class Meta:
         managed = False
         db_table = 'clusterno'
-        app_label = 'sds_database'  
 
 
 class Clustertipo(models.Model):
@@ -86,7 +81,6 @@ class Clustertipo(models.Model):
     class Meta:
         managed = False
         db_table = 'clustertipo'
-        app_label = 'sds_database'  
 
 
 class DjangoMigrations(models.Model):
@@ -98,7 +92,6 @@ class DjangoMigrations(models.Model):
     class Meta:
         managed = False
         db_table = 'django_migrations'
-        app_label = 'sds_database'  
 
 
 class Instancia(models.Model):
@@ -129,7 +122,6 @@ class Instancia(models.Model):
     class Meta:
         managed = False
         db_table = 'instancia'
-        app_label = 'sds_database'  
 
 
 class InstanciaPg(models.Model):
@@ -145,7 +137,6 @@ class InstanciaPg(models.Model):
     class Meta:
         managed = False
         db_table = 'instancia_pg'
-        app_label = 'sds_database'  
 
 
 class Logins(models.Model):
@@ -160,7 +151,6 @@ class Logins(models.Model):
     class Meta:
         managed = False
         db_table = 'logins'
-        app_label = 'sds_database'  
 
 
 class LoginsDatabase(models.Model):
@@ -175,7 +165,6 @@ class LoginsDatabase(models.Model):
     class Meta:
         managed = False
         db_table = 'logins_database'
-        app_label = 'sds_database'  
 
 
 class LoginsInstancia(models.Model):
@@ -190,7 +179,6 @@ class LoginsInstancia(models.Model):
     class Meta:
         managed = False
         db_table = 'logins_instancia'
-        app_label = 'sds_database'  
 
 
 class Serverdb(models.Model):
@@ -226,7 +214,6 @@ class Serverdb(models.Model):
     class Meta:
         managed = False
         db_table = 'serverdb'
-        app_label = 'sds_database'  
 
 
 class Tbcoluna(models.Model):
@@ -241,7 +228,6 @@ class Tbcoluna(models.Model):
     class Meta:
         managed = False
         db_table = 'tbcoluna'
-        app_label = 'sds_database'  
 
 
 class Tbindex(models.Model):
@@ -255,7 +241,6 @@ class Tbindex(models.Model):
     class Meta:
         managed = False
         db_table = 'tbindex'
-        app_label = 'sds_database'  
 
 
 class Trilha(models.Model):
@@ -266,32 +251,3 @@ class Trilha(models.Model):
     class Meta:
         managed = False
         db_table = 'trilha'
-        app_label = 'sds_database'  
-
-
-class vw_basededados(models.Model):
-    idbasededados = models.AutoField(primary_key=True)
-    id_serverhost = models.IntegerField()
-    idinstancia = models.IntegerField(blank=True, null=True)
-    idtrilha = models.IntegerField(blank=True, null=True)
-    sigla = models.CharField(max_length=10, blank=True, null=True)
-    servidor = models.CharField(max_length=150, blank=True, null=True)
-    hostname = models.CharField(max_length=60, blank=True, null=True)
-    instancia = models.CharField(max_length=255, blank=True, null=True)
-    sgbd = models.CharField(max_length=30, blank=True, null=True)
-    basededados = models.CharField(max_length=150, blank=True, null=True)
-    tamanho = models.FloatField(blank=True, null=True)
-    dbowner = models.CharField(max_length=100, blank=True, null=True)
-    descricao = models.CharField(max_length=255, blank=True, null=True)
-    created = models.DateTimeField(blank=True, null=True)
-    dhcriacao = models.DateTimeField(blank=True, null=True)
-    dhalteracao = models.DateTimeField(blank=True, null=True)
-    ativo = models.BooleanField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'vw_basededados'
-        app_label = 'sds_database'  
-
-    def __str__(self) -> str:
-        return "{} ({})".format(self.basededados)
