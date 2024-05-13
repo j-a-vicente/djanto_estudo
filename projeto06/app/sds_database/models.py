@@ -271,9 +271,9 @@ class Trilha(models.Model):
 
 class vw_basededados(models.Model):
     idbasededados = models.AutoField(primary_key=True)
-    id_serverhost = models.IntegerField()
     idinstancia = models.IntegerField(blank=True, null=True)
-    idtrilha = models.IntegerField(blank=True, null=True)
+    id_serverhost = models.IntegerField()
+    id_trilha = models.IntegerField(blank=True, null=True)
     sigla = models.CharField(max_length=10, blank=True, null=True)
     servidor = models.CharField(max_length=150, blank=True, null=True)
     hostname = models.CharField(max_length=60, blank=True, null=True)

@@ -34,8 +34,8 @@
                         <form id="serverhostForm" method="GET">
                             <div class="row">
                                 <div class="col-md-11 mx-auto">
-                                    <label for="hostname">Digite o nome do Banco de dados</label>
-                                    <input type="text" class="form-control" name="hostname" id="PesquisaHostname" value="{{ request.GET.hostname }}">
+                                    <label for="basededados">Digite o nome do Banco de dados</label>
+                                    <input type="text" class="form-control" name="basededados" id="Pesquisabasededados" value="{{ request.GET.hostname }}">
                                 </div>
                                 <div class="col-md-1 flex-fill d-flex flex-column align-items-center align-baseline  " >
                                     <div>&nbsp;</div>
@@ -66,7 +66,7 @@
                                     <tr>
                                         <th>Host Name</th>
                                         <th>Tilha</th>                                
-                                        <th>Instância</th>
+                                        <th>Servidor</th>
                                         <th>SGBD</th>
                                         <th>Banco de dados</th>
                                         <th>Tamanho</th> 
@@ -79,7 +79,7 @@
                                             <a href="{% url 'ServerHostDetalhe' lsh.pk %}" class="nav-link" >{{ lsh.hostname }}</a>
                                         </td>
                                         <td>{{ lsh.sigla }}</td>
-                                        <td>{{ lsh.instancia }}</td>
+                                        <td>{{ lsh.servidor }}</td>
                                         <td>{{ lsh.sgbd }}</td>
                                         <td>{{ lsh.basededados }}</td>
                                         <td>{{ lsh.tamanho }}</td>
@@ -150,10 +150,10 @@
             event.preventDefault(); // Previne o envio padrão do formulário
             
             // Obtém o valor do campo de pesquisa
-            var hostname = $('#PesquisaHostname').val();
+            var hostname = $('#Pesquisabasededados').val();
             
             // Executa a chamada AJAX para carregar a apresentação
-            $.get('{% url "serverhost_list" %}?hostname=' + hostname, function(data) {
+            $.get('{% url "DataBaseList" %}?basededados=' + basededados, function(data) {
                 // Insere o conteúdo carregado dentro de #apresentacao-container na página index.html
                 $('#apresentacao-container').html(data);
             });

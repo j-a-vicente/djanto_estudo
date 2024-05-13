@@ -27,10 +27,10 @@ class DataBaseList(GroupRequiredMixin, LoginRequiredMixin, ListView):
             parametro_limit = 10    
 
         if txt_basededados:
-            context = vw_basededados.objects.filter(hostname__icontains=txt_basededados).order_by('basededados')
+            context = vw_basededados.objects.filter(basededados__icontains=txt_basededados).order_by('basededados')
         else:
             # Retorna todos os registros
-            context = vw_basededados.objects.all().order_by('basededados')
+            context = vw_basededados.objects.all().order_by('-tamanho')
 
         srv_paginator = Paginator(context, parametro_limit)
 
