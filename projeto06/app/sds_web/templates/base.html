@@ -38,6 +38,13 @@
                 {% if request.user.is_authenticated %}
                         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
                                 class="fas fa-bars"></i></button>                
+                {% endif %}
+
+                <!-- Log e nome do cliente-->
+                    <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">                    
+                        <img src="{% static 'imagens/cliente-infraro162x29.png' %}" class="img-fluid" alt="Imagem responsiva">
+                    </div>
+                {% if request.user.is_authenticated %}                                
                     <!-- Navbar Search-->
                     <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                         <div class="input-group">
@@ -81,7 +88,7 @@
                                 <div class="sb-sidenav-menu-heading">&nbsp;</div>
                                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseInventario" aria-expanded="false"
                                     aria-controls="collapseInventario">
-                                    <div class="sb-nav-link-icon"><h5><i class="fas fa-tools"></i></div></h5>
+                                    <div class="sb-nav-link-icon"><h5><i class="fa-solid fa-warehouse"></i></div></h5>
                                     <h5>&nbsp; Inventário</h5>
                                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                 </a>
@@ -93,6 +100,97 @@
                                         <a class="nav-link" href="#!"><i class="fa-solid fa-hard-drive"></i>&nbsp; Storage</a>
                                     </nav>
                                 </div>
+
+                                <!-- Modulos -->
+                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseModulos" aria-expanded="false"
+                                    aria-controls="collapseModulos">
+                                    <div class="sb-nav-link-icon"><h5><i class="fa-solid fa-arrows-to-circle"></i></div></h5>
+                                        <h5>&nbsp; Modulos</h5>
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="collapseModulos" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                    <nav class="sb-sidenav-menu-nested nav">
+
+                                        <a class="nav-link collapsed" href="" data-bs-toggle="collapse" data-bs-target="#collapseActiveDirectory" aria-expanded="false" aria-controls="collapseActiveDirectory">
+                                            <i class="fa-solid fa-users-between-lines"></i>&nbsp; Active Directory
+                                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                        </a>
+                                        <div class="collapse" id="collapseActiveDirectory" aria-labelledby="headingOne" data-bs-parent="#collapseModulos">
+                                            <nav class="sb-sidenav-menu-nested nav">
+                                                <a id="sds_active_directory_dashboard_Link" class="nav-link" href="">
+                                                    <div><i class="fa fa-line-chart" aria-hidden="true"></i>
+                                                        </div>&nbsp;DashBoard</a>
+                                                <a id="sds_active_directory_DomainController_Link" class="nav-link" href="">
+                                                    <div><i class="fas fa-hdd" aria-hidden="true"></i>
+                                                        </div>&nbsp;Domain Controller</a>
+                                                <a id="sds_active_directory_Computadores_Link"class="nav-link" href="">
+                                                    <div><i class="fas fa-laptop" aria-hidden="true"></i>
+                                                        </div>&nbsp;Computadores</a>
+                                                <a id="sds_active_directory_Grupos_Link"class="nav-link" href="">
+                                                    <div><i class="fas fa-users" aria-hidden="true"></i>
+                                                        </div>&nbsp;Grupos</a>
+                                                <a id="sds_active_directory_Usuarios_Link"class="nav-link" href="">
+                                                    <div><i class="fas fa-user-circle" aria-hidden="true"></i>
+                                                        </div>&nbsp;Usuários</a> 
+                                                <a id="sds_active_directory_Contatos_Link"class="nav-link" href="">
+                                                    <div><i class="fas fa-poll-h" aria-hidden="true"></i>
+                                                        </div>&nbsp;Contatos</a>
+                                                <a id="sds_active_directory_GPO_Link"class="nav-link" href="">
+                                                    <div><i class="fas fa-share-alt" aria-hidden="true"></i>
+                                                        </div>&nbsp;GPO</a>
+                                                <a id="sds_active_directory_OU_Link"class="nav-link" href="">
+                                                    <div><i class="far fa-folder-open" aria-hidden="true"></i>
+                                                        </div>&nbsp;OU - Unidade Organizacional</a>
+                                            </nav>
+                                        </div>
+                                        <a id="sds_hyperv_apresentacao_Link" class="nav-link" href=""><i class="fa-brands fa-windows"></i>&nbsp;Hyper-V</a>
+                                        <a id="sds_nutanix_apresentacao_Link" class="nav-link" href=""><i class="fa-solid fa-mountain-city"></i>&nbsp;Nutanix</a>
+                                        <a id="sds_vmware_apresentacao_Link" class="nav-link" href=""><i class="fa-solid fa-toilets-portable"></i>&nbsp;VMware</a>
+                                        <a id="sds_listMSrvHost_Link" class="nav-link" href=""><i class="fa-solid fa-file-signature"></i>&nbsp;Cad manual SH</a>
+                                        <a id="sds_sccm_apresentacao_Link" class="nav-link" href=""><i class="fa-solid fa-timeline"></i>&nbsp;SCCM</a>
+                                        <a id="sds_db_apresentacao_Link" class="nav-link" href=""><i class="fa-solid fa-coins"></i>&nbsp;Banco de dados</a>                                          
+                                        <a class="nav-link" href=""><i class="fa-solid fa-folder-tree"></i>&nbsp;File Server</a>
+                                        <a class="nav-link" href=""><i class="fa-solid fa-boxes-stacked"></i>&nbsp;Storage</a>                                                                              
+
+                                    </nav>
+                                </div>
+
+                                <!-- Relatórios -->
+                                <a class="nav-link collapsed" href="" data-bs-toggle="collapse" data-bs-target="#collapseRelatorios" aria-expanded="false"
+                                    aria-controls="collapseRelatorios">
+                                    <div class="sb-nav-link-icon"><h5><i class="fa-solid fa-file-signature"></i></i></div></h5>
+                                        <h5>&nbsp; Relatórios</h5>
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="collapseRelatorios" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" href=""><i class="fa-solid fa-shield-halved"></i>&nbsp;Relatório 01</a>
+                                        <a class="nav-link" href=""><i class="fa-solid fa-book"></i>&nbsp;Relatório 02</a>
+                                        <a class="nav-link" href=""><i class="fa-solid fa-sliders"></i>&nbsp;Relatório 03</a>
+                                        <a class="nav-link" href=""><i class="fa-brands fa-codepen"></i>&nbsp;Relatório 04</a>
+                                        <a class="nav-link" href=""><i class="fa-solid fa-layer-group"></i>&nbsp;Relatório 05</a>
+                                        <a class="nav-link" href=""><i class="fa-solid fa-newspaper"></i>&nbsp;Relatório 06</a>
+                                        <a class="nav-link" href=""><i class="fa-solid fa-sitemap"></i>&nbsp;Relatório 07</a>
+                                        <a class="nav-link" href=""><i class="fa-solid fa-microchip"></i>&nbsp;Relatório 08</a>
+                                        <a class="nav-link" href=""><i class="fa-solid fa-cube"></i>&nbsp;Relatório 08</a>
+                                        <a class="nav-link" href=""><i class="fa-solid fa-fingerprint"></i>&nbsp;Relatório 09</a>
+                                        <a class="nav-link" href=""><i class="fa-solid fa-dice"></i>&nbsp;Relatório 10</a>
+                                    </nav>
+                                </div>
+
+                                <!-- Configurações -->
+                                <a class="nav-link collapsed" href="" data-bs-toggle="collapse" data-bs-target="#collapseConfiguracoes" aria-expanded="false"
+                                    aria-controls="collapseConfiguracoes">
+                                    <div class="sb-nav-link-icon"><h5><i class="fa-solid fa-gears"></i></div></h5>
+                                        <h5>&nbsp; Configurações</h5>
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="collapseConfiguracoes" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" href="admin/"><i class="fa-solid fa-screwdriver-wrench"></i>&nbsp;Administração</a>
+                                    </nav>
+                                </div>
+
                             </div>
                         </div>
                         <div class="sb-sidenav-footer">
