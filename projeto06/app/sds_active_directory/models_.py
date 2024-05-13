@@ -9,7 +9,7 @@ from django.db import models
 
 
 class AdComputer(models.Model):
-    id_ad_computer = models.IntegerField(primary_key=True)
+    id_ad_computer = models.AutoField()
     sid = models.CharField(max_length=100, blank=True, null=True)
     name = models.TextField(blank=True, null=True)
     dnshostname = models.TextField(blank=True, null=True)
@@ -32,7 +32,7 @@ class AdComputer(models.Model):
 
 
 class AdComputerDns(models.Model):
-    id_ad_computer_dns = models.IntegerField(primary_key=True)
+    id_ad_computer_dns = models.AutoField()
     sid = models.CharField(max_length=100, blank=True, null=True)
     name = models.TextField(blank=True, null=True)
     iphost = models.TextField(blank=True, null=True)
@@ -44,7 +44,7 @@ class AdComputerDns(models.Model):
 
 
 class AdContact(models.Model):
-    id_ad_contact = models.IntegerField(primary_key=True)
+    id_ad_contact = models.AutoField()
     name = models.CharField(max_length=100, blank=True, null=True)
     displayname = models.CharField(max_length=100, blank=True, null=True)
     mailnickname = models.CharField(max_length=100, blank=True, null=True)
@@ -64,7 +64,7 @@ class AdContact(models.Model):
 
 
 class AdDomainController(models.Model):
-    id_ad_domain_controller = models.IntegerField(primary_key=True)
+    id_ad_domain_controller = models.AutoField()
     name = models.CharField(max_length=100, blank=True, null=True)
     dnshostname = models.CharField(max_length=100, blank=True, null=True)
     description = models.CharField(max_length=100, blank=True, null=True)
@@ -80,7 +80,7 @@ class AdDomainController(models.Model):
 
 
 class AdGpo(models.Model):
-    id_ad_gpo = models.IntegerField(primary_key=True)
+    id_ad_gpo = models.AutoField()
     cn = models.CharField(max_length=100, blank=True, null=True)
     displayname = models.TextField(blank=True, null=True)
     distinguishedname = models.TextField(blank=True, null=True)
@@ -97,7 +97,7 @@ class AdGpo(models.Model):
 
 
 class AdGroup(models.Model):
-    id_ad_group = models.IntegerField(primary_key=True)
+    id_ad_group = models.AutoField()
     objectsid = models.CharField(max_length=100, blank=True, null=True)
     name = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
@@ -118,7 +118,7 @@ class AdGroup(models.Model):
 
 
 class AdGroupUser(models.Model):
-    id_ad_group_user = models.IntegerField(primary_key=True)
+    id_ad_group_user = models.AutoField()
     groupmember = models.TextField(blank=True, null=True)
     samaccountname = models.TextField(blank=True, null=True)
     lastupdateetl = models.DateTimeField(blank=True, null=True)
@@ -130,7 +130,7 @@ class AdGroupUser(models.Model):
 
 
 class AdOu(models.Model):
-    id_ad_ou = models.IntegerField(primary_key=True)
+    id_ad_ou = models.AutoField()
     name = models.TextField(blank=True, null=True)
     objectcategory = models.TextField(blank=True, null=True)
     objectclass = models.TextField(blank=True, null=True)
@@ -146,7 +146,7 @@ class AdOu(models.Model):
 
 
 class AdUser(models.Model):
-    id_ad_user = models.IntegerField(primary_key=True)
+    id_ad_user = models.AutoField()
     objectsid = models.CharField(max_length=100, blank=True, null=True)
     name = models.TextField(blank=True, null=True)
     displayname = models.TextField(blank=True, null=True)

@@ -22,4 +22,5 @@ urlpatterns = [
     path('',include('app.sds_web.urls')),
     path('sds_inventario/',include('app.sds_inventario.urls')),
     path('sds_database/',include('app.sds_database.urls')),
+    path('sds_active_directory/',include('app.sds_active_directory.urls')),
 ]
