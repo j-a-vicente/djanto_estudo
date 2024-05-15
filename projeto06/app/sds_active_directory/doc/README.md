@@ -1,4 +1,4 @@
-# MODULO SENTINEL ACTIVE DIRECTORY
+# Modulo Senteinel Active Directory
 
 
 ## Ideias para o dashboard de apresentação do painel do AD.
