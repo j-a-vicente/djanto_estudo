@@ -31,20 +31,28 @@
         - 544: Este código indica uma conta de usuário desativada e com a opção "Not Delegated" (Não Delegado) e "Smartcard required for interactive logon" (Cartão inteligente necessário para logon interativo) ativadas.    
         - 66048: a conta é uma conta de computador habilitada para logon, com uma senha que expira e que permite delegação de credenciais.
 
-    + Panéis de controle:
+    + Panéis de controle: (st_hist_account_user)
         + Dashboard para controle de contas que a senha vão expirar nos próximos 60 dias.
-            - contas que expiram nos últimos 60 dias e tiveram a sua senha renovada. (__pwdLastSet__ <= __accountExpires__)
-                Para este item será preciso guardar a data da coluna __accountExpires__ para compara com o valor atual.
-                O 60 dias vai usar a coluna __pwdLastSet__ como base para a contagem.
+            
+            - Contas que expiram nos últimos 60 dias e tiveram a sua senha renovada __antes__ da conta ficar bloqueada. 
+                * __accountExpires__ usado como variável do 60 dias, ou seja hoje menos 60 dias.
+                * __pwdLastSet__ a troca da senha tem que ser __menor__ que a data de bloqueio __accountExpires__, Este valor é depois da alteração.                    
+                * __useraccountcontrol__ a conta __DEVER__ está ativa.
 
+            - Contas que expiram nos últimos 60 dias e tiveram a sua senha renovada __depois__ da conta ficar bloqueada.
+                * __accountExpires__ usado como variável do 60 dias, ou seja hoje menos 60 dias.
+                * __pwdLastSet__ a troca da senha tem que ser __maior__ que a data de bloqueio __accountExpires__, 
+                * __useraccountcontrol__ a conta __DEVER__ está ativa.
 
-            - contas que expiram nos últimos 60 dias e __não__ tiveram a sua senha renovada ou seja aconta está bloqueada para login. (__pwdLastSet__ >= __accountExpires__)
-        
+            - Contas que expiram nos últimos 60 dias e __não__ tiveram a sua senha renovada ou seja aconta está bloqueada para login.
+                * __accountExpires__ usado como variável do 60 dias, ou seja hoje menos 60 dias.
+                * __pwdLastSet__ a troca da senha tem que ser __maior__ que a data de bloqueio __accountExpires__
+                * __useraccountcontrol__ a conta __DEVER__ está Desativada.        
 
 
         + Contas desativadas e estão fora da OU __desativada__
 
-    + Alerta para conta do usuário:
+    + Alerta para conta do usuário: (st_alert_user)
         
         + Total por dia.
             - __badPasswordTime__: Este atributo registra a data e hora da última tentativa de autenticação __mal__ sucedida (com uma senha incorreta) para a conta de usuário.

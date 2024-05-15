@@ -55,7 +55,8 @@ ALTER SEQUENCE public.st_alert_user_id_st_alert_user_seg
 
 CREATE TABLE IF NOT EXISTS public.st_alert_user
 (
-    id_st_alert_user integer NOT NULL DEFAULT nextval('st_alert_user_id_st_alert_user_seg'::regclass),
+    id_st_alert_user integer NOT NULL,
+    useraccountcontrol bigint,
     whencreated integer,
     whenchanged integer,
     accountexpires integer,
@@ -65,7 +66,107 @@ CREATE TABLE IF NOT EXISTS public.st_alert_user
     lastlogon integer,
     badpwdcount integer,
     lockouttime integer,
-	dhcriacao timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-CONSTRAINT st_alert_user_id_st_alert_user PRIMARY KEY (id_st_alert_user)
+    dhcriacao timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT st_alert_user_id_st_alert_user PRIMARY KEY (id_st_alert_user)
 )
-TABLESPACE pg_default;	
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.st_alert_user
+    OWNER to "Sentinel";	
+
+
+CREATE SEQUENCE IF NOT EXISTS public.st_hist_account_user_id_st_hist_account_user_seg
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+ALTER SEQUENCE public.st_hist_account_user_id_st_hist_account_user_seg
+    OWNER TO "Sentinel";
+
+CREATE TABLE IF NOT EXISTS public.st_hist_account_user
+(
+    id_st_hist_account_user integer NOT NULL DEFAULT nextval('st_hist_account_user_id_st_hist_account_user_seg'::regclass),
+	samaccountname text COLLATE pg_catalog."default" NOT NULL,
+    whencreated timestamp without time zone,
+    whenchanged timestamp without time zone,
+    accountexpires timestamp without time zone,
+    badpasswordtime timestamp without time zone,
+    pwdlastset timestamp without time zone,
+    lastlogontimestamp timestamp without time zone,
+    lastlogon timestamp without time zone,
+    badpwdcount bigint,
+    lockouttime bigint,
+    dhcriacao timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT st_hist_account_user_id_st_hist_account_user PRIMARY KEY (id_st_hist_account_user)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.st_hist_account_user OWNER to "Sentinel";
+
+
+
+-- Retora no numero referente ao dia.
+-- Alerta para conta do usuário: (st_alert_user)
+SELECT samaccountname
+	 , CASE 
+	     WHEN whencreated >= DATE_TRUNC('day', CURRENT_TIMESTAMP)
+	      AND
+			  whencreated <= DATE_TRUNC('day', CURRENT_TIMESTAMP) + INTERVAL '1 day - 1 second' THEN 1
+		 ELSE 0
+	    END as "whencreated"	
+	 , CASE 
+	     WHEN whenchanged >= DATE_TRUNC('day', CURRENT_TIMESTAMP)
+	      AND
+			  whenchanged <= DATE_TRUNC('day', CURRENT_TIMESTAMP) + INTERVAL '1 day - 1 second' THEN 1
+		 ELSE 0
+	    END as "whenchanged"	
+	 , CASE 
+	     WHEN accountexpires >= DATE_TRUNC('day', CURRENT_TIMESTAMP)
+	      AND
+			  accountexpires <= DATE_TRUNC('day', CURRENT_TIMESTAMP) + INTERVAL '1 day - 1 second' THEN 1
+		 ELSE 0
+	    END as "accountexpires"	
+	 , CASE 
+	     WHEN badpasswordtime >= DATE_TRUNC('day', CURRENT_TIMESTAMP)
+	      AND
+			  badpasswordtime <= DATE_TRUNC('day', CURRENT_TIMESTAMP) + INTERVAL '1 day - 1 second' THEN 1
+		 ELSE 0
+	    END as "badpasswordtime"	
+	 , CASE 
+	     WHEN pwdlastset >= DATE_TRUNC('day', CURRENT_TIMESTAMP)
+	      AND
+			  pwdlastset <= DATE_TRUNC('day', CURRENT_TIMESTAMP) + INTERVAL '1 day - 1 second' THEN 1
+		 ELSE 0
+	    END as "pwdlastset"	
+	 , CASE 
+	     WHEN lastlogontimestamp >= DATE_TRUNC('day', CURRENT_TIMESTAMP)
+	      AND
+			  lastlogontimestamp <= DATE_TRUNC('day', CURRENT_TIMESTAMP) + INTERVAL '1 day - 1 second' THEN 1
+		 ELSE 0
+	    END as "lastlogontimestamp"	
+	 , CASE 
+	     WHEN lastlogon >= DATE_TRUNC('day', CURRENT_TIMESTAMP)
+	      AND
+			  lastlogon <= DATE_TRUNC('day', CURRENT_TIMESTAMP) + INTERVAL '1 day - 1 second' THEN 1
+		 ELSE 0
+	    END as "lastlogon"	
+	, badpwdcount, lockouttime, useraccountcontrol
+FROM stage.ad_user;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
