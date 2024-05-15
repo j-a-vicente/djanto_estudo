@@ -158,7 +158,52 @@ SELECT samaccountname
 FROM stage.ad_user;
 
 
-
+SELECT samaccountname
+	 , CASE 
+	     WHEN whencreated >= DATE_TRUNC('day', CURRENT_TIMESTAMP)
+	      AND
+			  whencreated <= DATE_TRUNC('day', CURRENT_TIMESTAMP) + INTERVAL '1 day - 1 second' THEN 1
+		 ELSE 0
+	    END as "whencreated"	
+	 , CASE 
+	     WHEN whenchanged >= DATE_TRUNC('day', CURRENT_TIMESTAMP)
+	      AND
+			  whenchanged <= DATE_TRUNC('day', CURRENT_TIMESTAMP) + INTERVAL '1 day - 1 second' THEN 1
+		 ELSE 0
+	    END as "whenchanged"	
+	 , CASE 
+	     WHEN accountexpires >= DATE_TRUNC('day', CURRENT_TIMESTAMP)
+	      AND
+			  accountexpires <= DATE_TRUNC('day', CURRENT_TIMESTAMP) + INTERVAL '1 day - 1 second' THEN 1
+		 ELSE 0
+	    END as "accountexpires"	
+	 , CASE 
+	     WHEN badpasswordtime >= DATE_TRUNC('day', CURRENT_TIMESTAMP)
+	      AND
+			  badpasswordtime <= DATE_TRUNC('day', CURRENT_TIMESTAMP) + INTERVAL '1 day - 1 second' THEN 1
+		 ELSE 0
+	    END as "badpasswordtime"	
+	 , CASE 
+	     WHEN pwdlastset >= DATE_TRUNC('day', CURRENT_TIMESTAMP)
+	      AND
+			  pwdlastset <= DATE_TRUNC('day', CURRENT_TIMESTAMP) + INTERVAL '1 day - 1 second' THEN 1
+		 ELSE 0
+	    END as "pwdlastset"	
+	 , CASE 
+	     WHEN lastlogontimestamp >= DATE_TRUNC('day', CURRENT_TIMESTAMP)
+	      AND
+			  lastlogontimestamp <= DATE_TRUNC('day', CURRENT_TIMESTAMP) + INTERVAL '1 day - 1 second' THEN 1
+		 ELSE 0
+	    END as "lastlogontimestamp"	
+	 , CASE 
+	     WHEN lastlogon >= DATE_TRUNC('day', CURRENT_TIMESTAMP)
+	      AND
+			  lastlogon <= DATE_TRUNC('day', CURRENT_TIMESTAMP) + INTERVAL '1 day - 1 second' THEN 1
+		 ELSE 0
+	    END as "lastlogon"	
+	, badpwdcount, lockouttime, useraccountcontrol
+FROM stage.ad_user
+ORDER BY lockouttime DESC
 
 
 
