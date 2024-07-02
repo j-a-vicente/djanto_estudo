@@ -66,11 +66,10 @@
                                     <tr>
                                         <th>Host Name</th>
                                         <th>Tilha</th>                                
-                                        <th>Departamento</th>
-                                        <th>Região</th>
-                                        <th>Estado</th>                                
-                                        <th>Unidade</th>
-                                        <th>sistema Operacional</th>
+                                        <th>Sistema Operaciona</th>
+                                        <th>IP</th>
+                                        <th>CPU</th>                                
+                                        <th>Memória RAM</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -80,11 +79,10 @@
                                             <a href="{% url 'ServerHostDetalhe' lsh.pk %}" class="nav-link" >{{ lsh.hostname }}</a>
                                         </td>
                                         <td>{{ lsh.trilha }}</td>
-                                        <td>{{ lsh.dep }}</td>
-                                        <td>{{ lsh.regiao }}</td>
-                                        <td>{{ lsh.estado }}</td>
-                                        <td>{{ lsh.unidade }}</td>
                                         <td>{{ lsh.sistemaoperaciona }}</td>
+                                        <td>{{ lsh.ipaddress }}</td>
+                                        <td>{{ lsh.cpu }}</td>
+                                        <td>{{ lsh.memoryram }}</td>
                                     </tr>
                                     {% empty %}
                                     <tr>
