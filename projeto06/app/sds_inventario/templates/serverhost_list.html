@@ -72,11 +72,11 @@
                                         <th>Memória RAM</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                < tbody>
                                     {% for lsh in list_serverHost %}
                                     <tr>
                                         <td>
-                                            <a href="{% url 'ServerHostDetalhe' lsh.pk %}" class="nav-link" >{{ lsh.hostname }}</a>
+                                            <a href="{% url 'serverhost_detail' lsh.pk %}" class="nav-link" >{{ lsh.hostname }}</a>
                                         </td>
                                         <td>{{ lsh.trilha }}</td>
                                         <td>{{ lsh.sistemaoperaciona }}</td>
@@ -153,7 +153,7 @@
             var hostname = $('#PesquisaHostname').val();
             
             // Executa a chamada AJAX para carregar a apresentação
-            $.get('{% url "serverhost_list" %}?hostname=' + hostname, function(data) {
+            $.get('{% url "serverhost_detail" %}?hostname=' + hostname, function(data) {
                 // Insere o conteúdo carregado dentro de #apresentacao-container na página index.html
                 $('#apresentacao-container').html(data);
             });
