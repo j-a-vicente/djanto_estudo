@@ -93,6 +93,9 @@ DATABASES = {
         'PASSWORD':'Sentinel',
         'HOST':'172.18.0.3',
         'PORT':'5432',
+        'OPTIONS': {
+            'options': '-c search_path=public'
+        }        
     }, 
     'sds_inventario_db': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -101,6 +104,9 @@ DATABASES = {
         'PASSWORD':'Sentinel',
         'HOST':'172.18.0.3',
         'PORT':'5432',
+        'OPTIONS': {
+            'options': '-c search_path=public'
+        }        
     },    
     'sds_active_directory_db': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -109,6 +115,9 @@ DATABASES = {
         'PASSWORD':'Sentinel',
         'HOST':'172.18.0.3',
         'PORT':'5432',
+        'OPTIONS': {
+            'options': '-c search_path=public'
+        }        
     },     
     'sds_database_db': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -117,6 +126,9 @@ DATABASES = {
         'PASSWORD':'Sentinel',
         'HOST':'172.18.0.3',
         'PORT':'5432',
+        'OPTIONS': {
+            'options': '-c search_path=public'
+        }        
     },      
     'sds_sccm_db': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -125,6 +137,9 @@ DATABASES = {
         'PASSWORD':'Sentinel',
         'HOST':'172.18.0.3',
         'PORT':'5432',
+        'OPTIONS': {
+            'options': '-c search_path=public'
+        }
     },          
 }
 

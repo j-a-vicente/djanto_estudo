@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% load crispy_forms_tags %}
+{% bootstrap_javascript %}
+
+
+{% if request.user.is_authenticated %}
+    {% block content1 %}
+
+        <script>
+            // Mantem o menu do Inventário aberto quando a pagina é carregada.
+            // Script para modificar elementos na página base.html quando a página serverhost_list.html for carregada
+            document.addEventListener("DOMContentLoaded", function() {
+                // Modifica o link de navegação para abrir o menu de inventário ao ser clicado
+                var navLink = document.querySelector('.nav-link[data-bs-target="#collapseInventario"]');
+                navLink.setAttribute("href", "{% url 'serverhost_list' %}");
+                
+                // Modifica a classe do elemento de colapso para exibi-lo quando a página é carregada
+                var collapseElement = document.querySelector('#collapseInventario');
+                collapseElement.classList.add("show");
+            });
+        </script>
+        <link href="{% static 'css/styles2.css' %}" rel="stylesheet" />
+
+        <main>
+            <div class="container-fluid px-4">
+                <div class="row text-center">
+                    <div>&nbsp;</div>
+                </div>          
+                <div class="row d-flex  justify-content-bottom ">
+                    <div class="card mb-4  " >
+                        <form id="serverhostForm" method="GET">
+                            <div class="row">
+                                <div class="col-md-11 mx-auto">
+                                    <label for="hostname">Digite o nome do Server Host</label>
+                                    <input type="text" class="form-control" name="hostname" id="PesquisaHostname" value="{{ request.GET.hostname }}">
+                                </div>
+                                <div class="col-md-1 flex-fill d-flex flex-column align-items-center align-baseline  " >
+                                    <div>&nbsp;</div>
+                                    <button type="submit" class="btn btn-primary mb-1">Pesquisar</button> 
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            Filtro avançado
+                        </div>                
+                        
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="card mb-4">              
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                            Server host
+                        </div>
+                        <div class="card-body">
+                            <table id="datatablesSimple" class="table small-font-table" >
+                                <thead class="table-striped thead-dark" >
+                                    <tr>
+                                        <th>Host Name</th>
+                                        <th>Tilha</th>                                
+                                        <th>Sistema Operaciona</th>
+                                        <th>IP</th>
+                                        <th>CPU</th>                                
+                                        <th>Memória RAM</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for lsh in list_serverHost %}
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'serverhost_detail' lsh.pk %}" class="nav-link" >{{ lsh.hostname }}</a>
+                                        </td>
+                                        <td>{{ lsh.trilha }}</td>
+                                        <td>{{ lsh.sistemaoperaciona }}</td>
+                                        <td>{{ lsh.ipaddress }}</td>
+                                        <td>{{ lsh.cpu }}</td>
+                                        <td>{{ lsh.memoryram }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6">Server host não localizado</td>
+                                    </tr>
+                                    {% endfor %}                        
+                                </tbody>
+                            </table>
+
+                            
+                            <div class="row">
+                                {% with  ls_srv=list_serverHost.number %}
+                                    <h1>{{ls_srv}}</h1>
+                                {% endwith %}
+                            </div>
+                            
+
+                            <!-- Movido a estrutura da paginação para dentro da card-body -->
+                            <div class="row">
+                                <nav aria-label="...">
+                                    <ul class="pagination">                                                               
+                                    <li class="page-item disabled" onclick="ativar(this)"><a class="page-link" href="#" tabindex="-1">Anterior</a></li>                              
+                                        {% if list_serverHost.number|add:8 <= list_serverHost.paginator.num_pages %}
+                                            {% for num in list_serverHost.paginator.page_range|slice:":9" %}
+                                                <li class="page-item" onclick="ativar(this, {{ num }})"><a class="page-link" href="#">{{ num }}</a></li>
+                                            {% endfor %}                                    
+                                        {% endif %}
+                                    <li class="page-item active" onclick="ativar(this)" ><a class="page-link" href="#">1 <span class="sr-only">(atual)</span></a></li>                              
+                                    <li class="page-item" onclick="ativar(this)"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item" onclick="ativar(this)"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item" onclick="ativar(this)"><a class="page-link" href="#">4</a></li>
+                                    <li class="page-item" onclick="ativar(this)"><a class="page-link" href="#">5</a></li>
+                                    <li class="page-item" onclick="ativar(this)"><a class="page-link" href="#">Próximo</a>
+                                    </li>
+                                    </ul>
+                                </nav>
+                            </div>
+
+
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+{% endblock content1 %}
+{% else %}
+    {% block content2 %}
+        <div id="apresentacao-container"></div>
+    {% endblock content2 %}
+
+{% endif %}
+
+<script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+
+
+
+
+<!-- Evento  -->
+<script>
+
+    $(document).ready(function() {
+        $('#serverhostForm').submit(function(event) {
+            event.preventDefault(); // Previne o envio padrão do formulário
+            
+            // Obtém o valor do campo de pesquisa
+            var hostname = $('#PesquisaHostname').val();
+            
+            // Executa a chamada AJAX para carregar a apresentação
+            $.get('{% url "serverhost_detail" %}?hostname=' + hostname, function(data) {
+                // Insere o conteúdo carregado dentro de #apresentacao-container na página index.html
+                $('#apresentacao-container').html(data);
+            });
+        });
+    });
+</script>
+
+
+
+
+

@@ -57,7 +57,7 @@
                         <!-- Segunda coluna -->
                         <div class="col-md-6">
                             <div class="d-flex flex-row-reverse">
-                                <a id="sds_integrator_ModuloJobSchedule_Link" class="btn btn-primary btn-sm" href="">Voltar</a>
+                                <a id="sds_integrator_ModuloJobSchedule_Link" class="btn btn-primary btn-sm" href="javascript:window.history.back();">Voltar</a>
                             </div>
                         </div>
                     </div>
@@ -280,16 +280,20 @@
                                     <div class="table-responsive" style="max-height: 255px; overflow-y: auto;">
                                         <table id="datatablesSimple" class="table" >
                                             <thead class="thead-dark" style="position: sticky; top: 0; z-index: 1;">
-                                                <tr>
-                                                    <th>Fabricante</th>
-                                                    <th>Software</th>  
+                                                <tr>                                                    
+                                                    <th>Software</th>
+                                                    <th>Arquivo executavel</th>
+                                                    <th>Versão</th>  
+                                                    <th>Local de instalação</th> 
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {% for sccm_sf  in db_VwSoftware %}
+                                                {% for sccm_sf  in db_Software %}
                                                 <tr>
-                                                    <td>{{ sccm_sf.fabricante }}</td>
-                                                    <td>{{ sccm_sf.software }}</td>
+                                                    <td>{{ sccm_sf.publisher0 }}</td>
+                                                    <td>{{ sccm_sf.displayname0 }}</td>
+                                                    <td>{{ sccm_sf.filename }}</td>
+                                                    <td>{{ sccm_sf.filepath }}</td>
                                                 </tr>
                                                 {% empty %}
                                                 <tr>
@@ -298,44 +302,6 @@
                                                 {% endfor %}                        
                                             </tbody>                        
                                         </table>                                       
-                                    </div>
-                                </div>                                                     
-                            </div>                         
-
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <div class="row">
-                                        <!-- Primeira coluna -->
-                                            <div class="flex-fill d-flex flex-column align-baseline">
-                                                <h6><i class="fa-brands fa-instalod"></i>&nbsp;Local de instalação do software:</h6>
-                                            </div>
-
-                                    </div>                         
-                                </div>                         
-                                <div class="card-body">
-                                    <div class="table-responsive" style="max-height: 255px; overflow-y: auto;">
-                                        <table id="datatablesSimple" class="table" >
-                                            <thead class="thead-dark" style="position: sticky; top: 0; z-index: 1;">
-                                                <tr>
-                                                    <th>Arquivo executavel</th>
-                                                    <th>Versão</th>  
-                                                    <th>Local de instalação</th> 
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {% for sccm_sf  in db_VwSoftwareFile %}
-                                                <tr>
-                                                    <td>{{ sccm_sf.fileexec }}</td>
-                                                    <td>{{ sccm_sf.version }}</td>
-                                                    <td>{{ sccm_sf.localinstall }}</td>
-                                                </tr>
-                                                {% empty %}
-                                                <tr>
-                                                    <td colspan="3">Server host não localizado</td>
-                                                </tr>
-                                                {% endfor %}                        
-                                            </tbody>                        
-                                        </table>
                                     </div>
                                 </div>                                                     
                             </div>                         

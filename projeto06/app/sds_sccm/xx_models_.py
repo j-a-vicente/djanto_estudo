@@ -22,6 +22,7 @@ class Applications(models.Model):
     class Meta:
         managed = False
         db_table = 'applications'
+        app_label = 'sds_sccm' 
 
 
 class NetworkAdapter(models.Model):
@@ -44,6 +45,7 @@ class NetworkAdapter(models.Model):
     class Meta:
         managed = False
         db_table = 'network_adapter'
+        app_label = 'sds_sccm' 
 
 
 class ServerHost(models.Model):
@@ -73,6 +75,7 @@ class ServerHost(models.Model):
     class Meta:
         managed = False
         db_table = 'server_host'
+        app_label = 'sds_sccm' 
 
 
 class Software(models.Model):
@@ -89,6 +92,7 @@ class Software(models.Model):
     class Meta:
         managed = False
         db_table = 'software'
+        app_label = 'sds_sccm' 
 
 
 class Vmdisk(models.Model):
@@ -119,3 +123,4 @@ class Vmdisk(models.Model):
     class Meta:
         managed = False
         db_table = 'vmdisk'
+        app_label = 'sds_sccm' 
