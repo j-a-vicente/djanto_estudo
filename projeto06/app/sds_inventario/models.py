@@ -6,6 +6,7 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from django.db.models import Case, When, IntegerField
 
 
 class AdTbComputer(models.Model):
@@ -314,6 +315,7 @@ class vw_ServerHost(models.Model):
     versao = models.CharField(max_length=350, blank=True, null=True)
     cpu = models.BigIntegerField(blank=True, null=True)
     memoryram = models.BigIntegerField(blank=True, null=True)
+    zabbix = models.BooleanField(blank=True, null=True)
     ad = models.BooleanField(blank=True, null=True)
     or_ad = models.BooleanField(blank=True, null=True)
     sccm = models.BooleanField(blank=True, null=True)
@@ -334,3 +336,16 @@ class vw_ServerHost(models.Model):
         managed = False
         db_table = 'vw_serverhost'
         app_label = 'sds_inventario' 
+
+    @staticmethod
+    def get_ordered_queryset():
+        return vw_ServerHost.objects.annotate(
+            order_field=Case(
+                When(fisicovm='Servidor', then=1),
+                When(fisicovm='Servidor Físico', then=2),
+                When(fisicovm='Desktop', then=3),
+                When(fisicovm='Notebook', then=4),
+                default=5,
+                output_field=IntegerField(),
+            )
+        ).order_by('order_field')

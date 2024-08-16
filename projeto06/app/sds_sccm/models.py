@@ -43,12 +43,11 @@ class ShApplications(models.Model):
     hostname = models.CharField(max_length=256, blank=True, null=True)
     publisher0 = models.CharField(max_length=250, blank=True, null=True)
     displayname0 = models.TextField(blank=True, null=True)
-    filename = models.CharField(max_length=250, blank=True, null=True)
-    filepath = models.TextField(blank=True, null=True)
     version0 = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'sh_applications'
         app_label = 'sds_sccm'
-        db_tablespace = 'public'          
+        db_tablespace = 'public'         
+        ordering = ['publisher0', 'displayname0'] 

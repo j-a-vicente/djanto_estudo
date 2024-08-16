@@ -103,6 +103,9 @@
                         {% if ServerHost.md_database %}
                             <a class="nav-item nav-link" onclick="ativar('nav-bancodedados')" id="nav-bancodedados-tab" data-toggle="tab" href="#nav-bancodedados" role="tab" aria-controls="nav-bancodedados" aria-selected="false"><i class="fa-solid fa-database"></i>&nbsp;Banco de dados</a>
                         {% endif %}
+                        {% if ServerHost.zabbix %}
+                            <a class="nav-item nav-link" onclick="ativar('nav-zabbix')" id="nav-zabbix-tab" data-toggle="tab" href="#nav-zabbix" role="tab" aria-controls="nav-zabbix" aria-selected="false"><i class="fa-solid fa-magnifying-glass-chart"></i>&nbsp;Zabbix</a>
+                        {% endif %}                        
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
@@ -244,47 +247,19 @@
                                 <div class="card-header">
                                     <div class="row align-items-center">
                                         <!-- Primeira coluna -->
-                                        <div class="col-md-3">
-                                            <div class="flex-fill d-flex flex-column align-baseline">
-                                                <h6><i class="fa-brands fa-codepen"></i>&nbsp;Softwares instalado:</h6>
-                                            </div>
-                                        </div>                         
-                                        <div class="col-md-6">
-                                            <div class="flex-fill d-flex flex-column align-baseline">
-                                                <nav aria-label="paginacao-sccm-db_TbSccmApp">
-                                                    <ul class="pagination justify-content-center align-self-center">
-                                                        <li class="page-item disabled"><span class="page-link">Anterior</span></li>
-                                                        <li class="page-item active"><span class="page-link">1<span class="sr-only">(atual)</span></span></li>
-                                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                        <li class="page-item"><a class="page-link" href="#">Próximo</a></li>
-                                                    </ul>
-                                                </nav>
-                                            </div>
-                                        </div>                         
-                                        <div class="col-md-3">
-                                            <div class="flex-fill d-flex flex-column align-baseline">
-                                                <form class="d-none d-md-inline-block">
-                                                    <div class="input-group">
-                                                        <input class="form-control" type="text" placeholder="Pesquisar aqui.." aria-label="Pesquisar aqui.."
-                                                            aria-describedby="btnNavbarSearch" />
-                                                        <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>                         
-
+                                        <div class="flex-fill d-flex flex-column align-baseline">
+                                            <h6><i class="fa-brands fa-codepen"></i>&nbsp;Softwares instalado:</h6>
+                                        </div>
                                     </div>                         
                                 </div>                         
                                 <div class="card-body">
-                                    <div class="table-responsive" style="max-height: 255px; overflow-y: auto;">
+                                    <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
                                         <table id="datatablesSimple" class="table" >
                                             <thead class="thead-dark" style="position: sticky; top: 0; z-index: 1;">
                                                 <tr>                                                    
+                                                    <th>Fabricante</th>
                                                     <th>Software</th>
-                                                    <th>Arquivo executavel</th>
                                                     <th>Versão</th>  
-                                                    <th>Local de instalação</th> 
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -292,8 +267,7 @@
                                                 <tr>
                                                     <td>{{ sccm_sf.publisher0 }}</td>
                                                     <td>{{ sccm_sf.displayname0 }}</td>
-                                                    <td>{{ sccm_sf.filename }}</td>
-                                                    <td>{{ sccm_sf.filepath }}</td>
+                                                    <td>{{ sccm_sf.version0 }}</td>
                                                 </tr>
                                                 {% empty %}
                                                 <tr>
@@ -315,6 +289,81 @@
                             <a href="#" class="btn btn-primary">Visitar</a>
                         </div>                            
                     </div>
+                    <div class="tab-pane fade" id="nav-zabbix" role="tabpanel" aria-labelledby="nav-zabbix-tab">
+
+                        <div class="container-fluid p-3"  >
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <div class="row align-items-center">
+                                        <!-- Primeira coluna -->
+                                            <div class="flex-fill d-flex flex-column align-baseline">
+                                                <h6><i class="fa-brands fa-codepen"></i>&nbsp;Itens monitorados pelo Zabbix:</h6>
+                                            </div>
+                                    </div>                         
+                                </div>                         
+                                <div class="card-body">
+                                    <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+                                        <table id="datatablesSimple" class="table" >
+                                            <thead class="thead-dark" style="position: sticky; top: 0; z-index: 1;">
+                                                <tr>                                                    
+                                                    <th>Item</th>
+                                                    <th>Tipo</th>
+                                                    <th>Ativo para relatório</th>  
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for zb  in detalhe_zabbix_items %}
+                                                <tr>
+                                                    <td>{{ zb.name }}</td>
+                                                    <td>{{ zb.type }}</td>
+                                                    <td>
+                                                        {% if zb.monitor %}
+                                                            <a href="#" class="badge badge-success" data-toggle="modal" data-target="#ItemMonitor">{{ zb.monitor }}</a>
+                                                        {% else %}
+                                                            <a href="#" class="badge badge-secondary" data-toggle="modal" data-target="#ItemMonitor">{{ zb.monitor }}</a>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                {% empty %}
+                                                <tr>
+                                                    <td colspan="3">Itens não localizado</td>
+                                                </tr>
+                                                {% endfor %}                        
+                                            </tbody>                        
+                                        </table>                                       
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="ItemMonitor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Ativar extração do item</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                <!-- Corpo do modal -->
+                                                ...
+                                                </div>
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                <button type="button" class="btn btn-primary">Salvar mudanças</button>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>                                                     
+                            </div>  
+                        </div>  
+
+
+
+
+                    </div>
+
                 </div>
             </div>
         </div>

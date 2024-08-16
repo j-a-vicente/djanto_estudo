@@ -11,3 +11,15 @@ class ad_dashboard(GroupRequiredMixin, LoginRequiredMixin, TemplateView):
     login_url = reverse_lazy('login')
     group_required = [u"Administradores", u"Monitor", u"Operador", u"Visitante"]
     template_name = 'ad_dashboard.html' 
+
+
+class ad_group(GroupRequiredMixin, LoginRequiredMixin, TemplateView):
+    login_url = reverse_lazy('login')
+    group_required = [u"Administradores", u"Monitor", u"Operador", u"Visitante"]
+    template_name = 'ad_group.html' 
+
+
+class ad_user(GroupRequiredMixin, LoginRequiredMixin, TemplateView):
+    login_url = reverse_lazy('login')
+    group_required = [u"Administradores", u"Monitor", u"Operador", u"Visitante"]
+    template_name = 'ad_user.html'     

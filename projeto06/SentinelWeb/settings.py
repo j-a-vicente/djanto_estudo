@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'app.sds_active_directory',
     'app.sds_database',
     'app.sds_sccm',
+    'app.sds_zabbix',
 ]
 
 MIDDLEWARE = [
@@ -140,6 +141,17 @@ DATABASES = {
         'OPTIONS': {
             'options': '-c search_path=public'
         }
+    },      
+    'sds_zabbix_db': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'sds_zabbix',
+        'USER': 'Sentinel',
+        'PASSWORD':'Sentinel',
+        'HOST':'172.18.0.14',
+        'PORT':'5432',
+        'OPTIONS': {
+            'options': '-c search_path=public'
+        }
     },          
 }
 
@@ -148,7 +160,7 @@ DATABASES = {
 DATABASE_ROUTERS = ['routers.db_routers.AuthRouter',
 'routers.db_routers.SdsWebRouter','routers.db_routers.SdsInventarioRouter',
 'routers.db_routers.SdsActiveDirectoryRouter','routers.db_routers.SdsSccmRouter',
-'routers.db_routers.SdsDataBaseRouter',]
+'routers.db_routers.SdsDataBaseRouter','routers.db_routers.SdsZabbixRouter',]
 
 
 # Password validation
