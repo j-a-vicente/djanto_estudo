@@ -348,4 +348,5 @@ class vw_ServerHost(models.Model):
                 default=5,
                 output_field=IntegerField(),
             )
-        ).order_by('order_field')
+        ).order_by('order_field', 'zabbix')
+    

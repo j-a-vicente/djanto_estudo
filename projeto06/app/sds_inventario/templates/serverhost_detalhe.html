@@ -137,7 +137,7 @@
                                                 <i class="fa-solid fa-hard-drive"></i>&nbsp;&nbsp;<strong>HD:</strong>&nbsp;{{ lsh.deviceid0 }}&nbsp;<strong>Tamanho:</strong>&nbsp;{{ lsh.size0 }}&nbsp;&nbsp;&nbsp;
                                                 
                                             {% empty %}
-                                            <div>Server host não localizado</div>
+                                            <div>HD's não localizado</div>
                                             {% endfor %}                        
                                             
                                         </div>
@@ -145,27 +145,34 @@
                                 </div>
                             </div>    
 
+                            
 
-                            <div class="row">
-                                <div class="col-xl-6">
-                                    <div class="card mb-4">
+                            <div class="row" style="height: calc(50vh - 100px);">
+                                <div class="col-xl-6" style="flex: 1; display: flex; flex-direction: column;">
+                                    <div class="card mb-4" style="height: 100%;">
                                         <div class="card-header">
                                             <i class="fas fa-chart-area me-1"></i>
                                             Uso de CPU
                                         </div>
-                                        <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                                        <div class="card-body" style="height: 100%;">
+                                            <canvas id="uso_de_cpu" style="height: 100%; width: 100%;"></canvas>
+                                        </div>
                                     </div>
                                 </div> 
-                                <div class="col-xl-6">
-                                    <div class="card mb-4">
+                                <div class="col-xl-6" style="flex: 1; display: flex; flex-direction: column;">
+                                    <div class="card mb-4" style="height: 100%;">
                                         <div class="card-header">
                                             <i class="fas fa-chart-bar me-1"></i>
                                             Uso de Memória
                                         </div>
-                                        <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                                        <div class="card-body" style="height: 100%;">
+                                            <canvas id="uso_de_memoria" style="height: 100%; width: 100%;"></canvas>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>    
+                            </div>
+                            
+                              
                             
                             
                         </div>                        
@@ -404,9 +411,17 @@
     <script src="{% static 'js/popper.mim.js' %}" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous" ></script>
     <script src="{% static 'js/bootstrap.mim.js' %}" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
+
+    <script>
+        window.onload = function(e){
+            renderiza_cpu_ultimos_30_dias('{% url "zabbix_host_cpu_30_dias" ServerHost.hostname %}');
+        }
+    </script>
+    
+    
     
 
-<main
+</main>
 
 {% endblock content1 %}
 {% else %}
