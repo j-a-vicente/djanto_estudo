@@ -414,7 +414,8 @@
 
     <script>
         window.onload = function(e){
-            renderiza_cpu_ultimos_30_dias('{% url "zabbix_host_cpu_30_dias" ServerHost.hostname %}');
+            renderiza_cpu_ultimos_30_dias('{% url "zabbix_host_cpu_30_dias" ServerHost.hostname %}')
+            renderiza_ram_ultimos_30_dias('{% url "zabbix_host_ram_30_dias" ServerHost.hostname %}')
         }
     </script>
     

@@ -20,6 +20,18 @@ class Hists(models.Model):
         db_table = 'hists'
         app_label = 'sds_zabbix'
 
+class HistsDia(models.Model):
+    id_hist_dia = models.AutoField(primary_key=True)
+    itemids = models.IntegerField(blank=True, null=True)
+    clock = models.DateTimeField()
+    value = models.FloatField(blank=True, null=True)
+    num = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'hists_dia'
+        app_label = 'sds_zabbix'
+
 
 class Hosts(models.Model):
     hostid = models.IntegerField(primary_key=True)
