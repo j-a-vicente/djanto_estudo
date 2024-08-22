@@ -37,7 +37,7 @@ class ServerHostList(GroupRequiredMixin, LoginRequiredMixin, ListView):
                 default=5,
                 output_field=IntegerField(),
             )
-        ).order_by('order_field', 'hostname')
+        ).order_by('id_trilha','order_field', 'hostname')
 
         if txt_hostname:
             queryset = queryset.filter(hostname__icontains=txt_hostname)
