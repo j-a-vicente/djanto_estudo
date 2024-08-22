@@ -22,22 +22,27 @@
                 <div class="row text-center">
                     <div>&nbsp;</div>
                 </div>          
+
                 <div class="row d-flex justify-content-bottom">
                     <div class="card mb-4">
                         <form id="serverhostForm" method="GET">
-                            <div class="row">
-                                <div class="col-md-11 mx-auto">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-md-10">
                                     <label for="hostname">Digite o nome do Server Host</label>
-                                    <input type="text" class="form-control" name="hostname" id="PesquisaHostname" value="{{ request.GET.hostname }}">
+                                    <input type="text" class="form-control w-100" name="hostname" id="PesquisaHostname" value="{{ request.GET.hostname }}">
                                 </div>
-                                <div class="col-md-1 flex-fill d-flex flex-column align-items-center align-baseline">
-                                    <div>&nbsp;</div>
+                                
+                                <div class="col-md-2 d-flex flex-row justify-content-end">
+                                    {% if request.GET.hostname %}
+                                        <a class="btn btn-primary mb-1 me-2" href="{% url 'serverhost_list' %}?limit={{ page_obj.paginator.per_page }}">Reset</a>
+                                    {% endif %}
                                     <button type="submit" class="btn btn-primary mb-1">Pesquisar</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="card mb-4">
                         <div class="card-header">Filtro avançado</div>
@@ -64,7 +69,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for lsh in list_serverHost %}
+                                    {% for lsh in page_obj %}
                                     <tr>
                                         <td>{{ lsh.trilha }}</td>
                                         <td>
@@ -79,49 +84,16 @@
                                     </tr>
                                     {% empty %}
                                     <tr>
-                                        <td colspan="6">Server host não localizado</td>
+                                        <td colspan="8">Server host não localizado</td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
                             </table>
 
                             <div class="row">
-                                <nav aria-label="Page navigation">
-                                    <ul class="pagination">
-                                        {% if list_serverHost.has_previous %}
-                                            <li class="page-item">
-                                                <a class="page-link" href="?{% if request.GET.hostname %}hostname={{ request.GET.hostname }}&{% endif %}page={{ list_serverHost.previous_page_number }}" aria-label="Previous">
-                                                    <span aria-hidden="true">&laquo;</span>
-                                                </a>
-                                            </li>
-                                        {% else %}
-                                            <li class="page-item disabled">
-                                                <span class="page-link">&laquo;</span>
-                                            </li>
-                                        {% endif %}
-
-                                        {% for num in list_serverHost.paginator.page_range %}
-                                            {% if list_serverHost.number == num %}
-                                                <li class="page-item active"><span class="page-link">{{ num }}</span></li>
-                                            {% elif num > list_serverHost.number|add:-3 and num < list_serverHost.number|add:3 %}
-                                                <li class="page-item"><a class="page-link" href="?{% if request.GET.hostname %}hostname={{ request.GET.hostname }}&{% endif %}page={{ num }}">{{ num }}</a></li>
-                                            {% endif %}
-                                        {% endfor %}
-
-                                        {% if list_serverHost.has_next %}
-                                            <li class="page-item">
-                                                <a class="page-link" href="?{% if request.GET.hostname %}hostname={{ request.GET.hostname }}&{% endif %}page={{ list_serverHost.next_page_number }}" aria-label="Next">
-                                                    <span aria-hidden="true">&raquo;</span>
-                                                </a>
-                                            </li>
-                                        {% else %}
-                                            <li class="page-item disabled">
-                                                <span class="page-link">&raquo;</span>
-                                            </li>
-                                        {% endif %}
-                                    </ul>
-                                </nav>
+                                {% include 'paginacao_h.html' %}
                             </div>
+
                         </div>
                     </div>
                 </div>

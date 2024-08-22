@@ -4,7 +4,6 @@ from braces.views import GroupRequiredMixin
 from django.urls import reverse_lazy
 from django.http.response import HttpResponse, JsonResponse
 from datetime import datetime, timedelta
-
 from .models import VwItemsServerHost, HistsDia
 
 

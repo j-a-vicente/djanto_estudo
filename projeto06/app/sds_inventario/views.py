@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
-from braces.views import GroupRequiredMixin
+from braces.views import GroupRequiredMixin, LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.views.generic.list import ListView
+from django.views.generic import ListView
 from django.db.models import Case, When, IntegerField
 
 from .models import vw_ServerHost
@@ -16,14 +16,17 @@ class ServerHostList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     template_name = 'serverhost_list.html'
     model = vw_ServerHost
     context_object_name = 'list_serverHost'
-    paginate_by = 30
+    paginate_by = 15  # Define a paginação padrão para 15 itens por página
 
     def get_queryset(self):
-        txt_hostname = self.request.GET.get('hostname')
-        parametro_limit = self.request.GET.get('limit', '30')
+        txt_hostname = self.request.GET.get('hostname', '')
+        parametro_limit = self.request.GET.get('limit', '15')
 
-        if not (parametro_limit.isdigit() and int(parametro_limit) > 0):
-            parametro_limit = 30
+        # Verifica se parametro_limit é um número positivo
+        if parametro_limit.isdigit() and int(parametro_limit) > 0:
+            parametro_limit = int(parametro_limit)
+        else:
+            parametro_limit = 15
 
         queryset = vw_ServerHost.objects.annotate(
             order_field=Case(
@@ -43,8 +46,26 @@ class ServerHostList(GroupRequiredMixin, LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['hostname'] = self.request.GET.get('hostname', '')
+        txt_hostname = self.request.GET.get('hostname', '')
+        page_number = self.request.GET.get('page', 1)
+        parametro_limit = self.request.GET.get('limit', '15')
+
+        if parametro_limit.isdigit() and int(parametro_limit) > 0:
+            parametro_limit = int(parametro_limit)
+        else:
+            parametro_limit = 15
+
+        queryset = self.get_queryset()
+        paginator = Paginator(queryset, parametro_limit)
+        page_obj = paginator.get_page(page_number)
+
+        context['page_obj'] = page_obj
+        context['hostname'] = txt_hostname
+        context['list_serverHost'] = page_obj.object_list
+
         return context
+
+
 
 class ServerHostDetalhe(GroupRequiredMixin, LoginRequiredMixin, ListView):   
     login_url = reverse_lazy('login') 
