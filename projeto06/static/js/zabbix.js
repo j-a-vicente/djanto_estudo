@@ -122,3 +122,127 @@ function renderiza_ram_ultimos_30_dias(url) {
         console.error('Erro ao renderizar o gráfico:', error);
     });
 }
+
+
+
+
+function renderiza_sistema_operacional(url) {
+    fetch(url, {
+        method: 'get',
+    }).then(function(result) {
+        return result.json();
+    }).then(function(data) {
+        const ctx = document.getElementById('so_chart').getContext('2d');
+        const cores = gera_cor(data.labels.length); // Gerar cores com base na quantidade de sistemas operacionais
+
+        const myChart = new Chart(ctx, {
+            type: 'bar', // Gráfico de barras
+            data: {
+                labels: data.labels, // Labels são os nomes dos sistemas operacionais
+                datasets: [{
+                    label: 'Quantidade por Sistema Operacional',
+                    data: data.counts, // Dados são as quantidades de cada sistema operacional
+                    backgroundColor: cores[0],
+                    borderColor: cores[1],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y', // Define o gráfico como barras horizontais
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                    },
+                    datalabels: {
+                        display: true,
+                        color: '#000', // Cor do texto das legendas
+                        anchor: 'end', // Posição do texto nas barras
+                        align: 'end', // Alinhamento do texto
+                        formatter: (value) => value // Formatar o texto das legendas
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        suggestedMax: Math.max(...data.counts) + 10, // Adiciona um espaço extra
+                        title: {
+                            display: true,
+                            text: 'Quantidade'
+                        },
+                        ticks: {
+                            padding: 10 // Adiciona um padding extra para as legendas
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Sistemas Operacionais'
+                        }
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false
+            },
+            plugins: [ChartDataLabels] // Adicionar o plugin datalabels
+        });
+    }).catch(function(error) {
+        console.error('Erro ao renderizar o gráfico:', error);
+    });
+}
+
+
+
+
+
+function renderiza_sistema_operacional_ii(url) {
+    fetch(url, {
+        method: 'get',
+    }).then(function(result) {
+        return result.json();
+    }).then(function(data) {
+        const ctx = document.getElementById('so_chart').getContext('2d');
+        const cores = gera_cor(data.labels.length); // Gerar cores com base na quantidade de sistemas operacionais
+
+        const myChart = new Chart(ctx, {
+            type: 'bar', // Gráfico de barras para os sistemas operacionais
+            data: {
+                labels: data.labels, // Labels são os nomes dos sistemas operacionais
+                datasets: [{
+                    label: 'Quantidade por Sistema Operacional',
+                    data: data.counts, // Dados são as quantidades de cada sistema operacional
+                    backgroundColor: cores[0],
+                    borderColor: cores[1],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Quantidade'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Sistemas Operacionais'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    }).catch(function(error) {
+        console.error('Erro ao renderizar o gráfico:', error);
+    });
+}

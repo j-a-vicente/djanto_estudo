@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% load crispy_forms_tags %}
+{% bootstrap_javascript %}
+
+{% if request.user.is_authenticated %}
+    {% block content1 %}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Relatório Operacional Mensal</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                line-height: 1.6;
+                margin: 20px;
+                color: #333;
+            }
+            h1, h2 {
+                color: #0056b3;
+            }
+            h1 {
+                text-align: center;
+            }
+            p {
+                text-align: justify;
+            }
+            ul {
+                list-style-type: disc;
+                margin-left: 20px;
+            }
+            #index {
+                margin-bottom: 20px;
+            }
+            #index a {
+                text-decoration: none;
+                color: #0056b3;
+            }
+            #index a:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+
+        <main>
+            <!--<link href="{% static 'css/report.css' %}" rel="stylesheet"-->
+
+            <div class="container-fluid px-4">
+                <div class="row text-center">
+                    <div>&nbsp;</div>
+                </div>                                  
+                
+                <h1>Relatório Operacional Mensal</h1>
+
+                <div id="index">
+                    <h2>Índice</h2>
+                    <ul>
+                        <li><a href="#introducao">Introdução</a></li>
+                        <li><a href="#objetivo">Objetivo</a></li>
+                        <ul>
+                            <li><a href="#informacoes-quantitativas">Informações Quantitativas</a></li>
+                            <li><a href="#graficos">Gráficos</a></li>
+                            <li><a href="#preditivo">Preditivo</a></li>
+                            <li><a href="#relatorio-qualitativo">Relatório Qualitativo</a></li>
+                        </ul>
+                    </ul>
+                </div>
+
+
+                <h3 id="introducao">Introdução</h3>
+                <p>
+                    Este Relatório Operacional Mensal foi elaborado com o intuito de fornecer uma visão abrangente e detalhada do estado atual da infraestrutura de T.I., incluindo uma análise quantitativa e qualitativa dos servidores de produção, bem como previsões para o futuro próximo. O relatório é um recurso essencial para o monitoramento contínuo e a gestão eficaz dos ativos de T.I., permitindo uma tomada de decisão mais informada e proativa.
+                </p>
+            
+                <h3 id="objetivo">Objetivo</h3>
+                <p>
+                    O principal objetivo deste relatório é informar o cliente sobre o estado atual da infraestrutura de T.I., destacando pontos críticos e fornecendo insights sobre o desempenho e a capacidade dos servidores. Especificamente, o relatório aborda:
+                </p>
+            
+                <h3 id="informacoes-quantitativas">Informações Quantitativas</h3>
+                <ul>
+                    <li>Total de servidores de produção em operação.</li>
+                    <li>Volume total de dados armazenados nos discos rígidos dos servidores.</li>
+                </ul>
+            
+                <h3 id="graficos">Gráficos</h3>
+                <ul>
+                    <li>Distribuição dos sistemas operacionais utilizados nos servidores.</li>
+                    <li>Classificação dos servidores por tipo: servidores virtuais, servidores físicos, desktops, etc.</li>
+                    <li>Monitoramento realizado pelo Zabbix.</li>
+                    <li>Servidores com rotinas de backup estabelecidas.</li>
+                    <li>Origem dos dados obtidos de fontes como Active Directory (A.D.), SCCM, VMM, Hyper-V, VMware e Nutanix.</li>
+                </ul>
+            
+                <h3 id="preditivo">Preditivo</h3>
+                <ul>
+                    <li>Projeção da evolução do volume de dados nos próximos seis meses, incluindo a taxa de crescimento esperada.</li>
+                </ul>
+            
+                <h3 id="relatorio-qualitativo">Relatório Qualitativo</h3>
+                <ul>
+                    <li>Análise individual de cada servidor, abordando o uso de CPU, memória, rede e volumetria dos discos rígidos.</li>
+                </ul>
+            
+                <p>
+                    Este relatório é uma ferramenta valiosa para a avaliação da saúde e eficiência da infraestrutura de T.I., ajudando a identificar áreas de melhoria e a planejar expansões ou otimizações futuras.
+                </p>
+
+                <!--Lista de servidores -->
+                <div class="row">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                            Servidores de produção:
+                        </div>
+                        <div class="card-body">
+
+                            <table id="datatablesSimple" class="table small-font-table">
+                                <thead class="table-striped thead-dark">
+                                    <tr>
+                                        <th>Trilha</th>
+                                        <th>Host Name</th>
+                                        <th>Sistema Operacional</th>
+                                        <th>Tipo</th>
+                                        <th>IP</th>
+                                        <th>CPU</th>
+                                        <th>Memória RAM</th>
+                                        <th>Monitorado pelo Zabbix</th>
+                                        <th>Origem</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for lsh in srv_prd %}
+                                    <tr>
+                                        <td>{{ lsh.trilha }}</td>
+                                        <td>{{ lsh.hostname }}</td>
+                                        <td>{{ lsh.sistemaoperaciona }}</td>
+                                        <td>{{ lsh.fisicovm }}</td>                                        
+                                        <td>{{ lsh.ipaddress }}</td>
+                                        <td>{{ lsh.cpu }}</td>
+                                        <td>{{ lsh.memoryram }}</td>
+                                        <td>{{ lsh.zabbix|yesno:"Sim,Não" }}</td>
+                                        <td>{{ lsh.origem }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="9">Server host não localizado</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            
+                            <div class="row">
+                                {% include 'paginacao_h.html' %}
+                            </div>
+                            
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    {% endblock content1 %}
+{% else %}
+    {% block content2 %}
+        <div id="apresentacao-container"></div>
+    {% endblock content2 %}
+{% endif %}
+

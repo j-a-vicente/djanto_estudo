@@ -24,11 +24,6 @@ def ZabbixHostCpuUlt30dias(request, server_host_value):
     except VwItemsServerHost.DoesNotExist:
         return JsonResponse({'error': 'Server host not found'}, status=404)
 
-    """try:
-        item_ids = VwItemsServerHost.objects.filter(server_host=server_host_value).values_list('itemid', flat=True)
-    except VwItemsServerHost.DoesNotExist:
-        return JsonResponse({'error': 'Server host not found'}, status=404)"""
-    
     # Filtrar os valores em Hists correspondentes aos itemids e ao período dos últimos 30 dias
     hists = HistsDia.objects.filter(itemids__in=item_ids, clock__date__gte=data_inicial, clock__date__lte=data_final)
     

@@ -65,7 +65,7 @@
                                         <th>IP</th>
                                         <th>CPU</th>
                                         <th>Memória RAM</th>
-                                        <th>Zabbix</th>
+                                        <th>Monitorado pelo Zabbix</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -80,7 +80,7 @@
                                         <td>{{ lsh.ipaddress }}</td>
                                         <td>{{ lsh.cpu }}</td>
                                         <td>{{ lsh.memoryram }}</td>
-                                        <td>{{ lsh.zabbix }}</td>
+                                        <td>{{ lsh.zabbix|yesno:"Sim,Não" }}</td>
                                     </tr>
                                     {% empty %}
                                     <tr>

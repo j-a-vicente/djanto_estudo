@@ -341,7 +341,7 @@ class vw_ServerHost(models.Model):
     def get_ordered_queryset():
         return vw_ServerHost.objects.annotate(
             order_field=Case(
-                When(fisicovm='Servidor', then=1),
+                When(fisicovm='Servidor Virtual', then=1),
                 When(fisicovm='Servidor Físico', then=2),
                 When(fisicovm='Desktop', then=3),
                 When(fisicovm='Notebook', then=4),

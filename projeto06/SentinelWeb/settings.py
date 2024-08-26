@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'app.sds_database',
     'app.sds_sccm',
     'app.sds_zabbix',
+    'app.sds_relatorios',
 ]
 
 MIDDLEWARE = [
