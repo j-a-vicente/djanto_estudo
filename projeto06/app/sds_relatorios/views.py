@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from braces.views import GroupRequiredMixin, LoginRequiredMixin
 from django.views.generic import ListView
 from django.urls import reverse_lazy
-from django.db.models import Case, When, IntegerField, Count
+from django.db.models import Case, When, IntegerField, Count, Sum
 
 from .models import VwRelSrvProducao
 
@@ -58,8 +58,16 @@ class RelOperacionaMensalSOimp(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Adicionando a soma total de servidores ao contexto
+        
+        # Total de servidores
         context['total_servidores'] = self.get_queryset().count()
+
+        # Soma dos valores da coluna "cpu"
+        context['total_cpu'] = self.get_queryset().aggregate(total_cpu=Sum('cpu'))['total_cpu']
+
+        # Soma dos valores da coluna "cpu"
+        context['total_ram'] = self.get_queryset().aggregate(total_ram=Sum('memoryram'))['total_ram']
+
         return context
 
 
@@ -75,6 +83,48 @@ def sistema_operacional_chart(Grequest):
     )
 
     labels = [entry['sistemaoperaciona'] for entry in data]
+    counts = [entry['count'] for entry in data]
+
+    # Preparar os dados para o JSON
+    data_json = {
+        'labels': labels,
+        'counts': counts,
+    }
+
+    return JsonResponse(data_json)
+
+def servidor_tipo_chart(Grequest):
+   
+    # Consultar e agrupar os sistemas operacionais por quantidade
+    data = (
+        VwRelSrvProducao.objects
+        .values('fisicovm')
+        .annotate(count=Count('fisicovm'))
+        .order_by('fisicovm')
+    )
+
+    labels = [entry['fisicovm'] for entry in data]
+    counts = [entry['count'] for entry in data]
+
+    # Preparar os dados para o JSON
+    data_json = {
+        'labels': labels,
+        'counts': counts,
+    }
+
+    return JsonResponse(data_json)
+
+def monito_zabbix_chart(Grequest):
+   
+    # Consultar e agrupar os sistemas operacionais por quantidade
+    data = (
+        VwRelSrvProducao.objects
+        .values('zabbix')
+        .annotate(count=Count('zabbix'))
+        .order_by('zabbix')
+    )
+
+    labels = [entry['zabbix'] for entry in data]
     counts = [entry['count'] for entry in data]
 
     # Preparar os dados para o JSON

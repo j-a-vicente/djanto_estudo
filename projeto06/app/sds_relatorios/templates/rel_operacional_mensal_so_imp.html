@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatório Operacional Mensal</title>
-    
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -41,6 +41,32 @@
             width: 100%;
             height: 400px;
         }
+        .full-height {
+            height: 100vh;
+        }
+        .column {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .chart-container {
+            border: 1px solid #ddd;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }       
+        .half-size {
+        width: 50% !important;
+        height: 100% !important;
+        align-items: center;
+        justify-content: center;        
+    }        
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -62,7 +88,7 @@
                 <li><a href="#introducao">Introdução</a></li>
                 <li><a href="#objetivo">Objetivo</a></li>
                 <ul>
-                    <li><a href="#informacoes-quantitativas">Informações Quantitativas</a></li>
+                    <li><a href="#Dados-quantitativas">Dados Quantitativas</a></li>
                     <li><a href="#graficos">Gráficos</a></li>
                     <li><a href="#preditivo">Preditivo</a></li>
                     <li><a href="#relatorio-qualitativo">Relatório Qualitativo</a></li>
@@ -80,13 +106,31 @@
             O principal objetivo deste relatório é informar o cliente sobre o estado atual da infraestrutura de T.I., destacando pontos críticos e fornecendo insights sobre o desempenho e a capacidade dos servidores. Especificamente, o relatório aborda:
         </p>
     
-        <h3 id="informacoes-quantitativas">Informações Quantitativas</h3>
-        <ul>
-            <li>Total de servidores de produção em operação:  {{ total_servidores }}</li>
-            <li>Volume total de dados armazenados nos discos rígidos dos servidores.</li>
+        <h3 id="Dados-quantitativas">Dados quantitativas</h3>
+        <p>Este relatório apresenta um panorama detalhado do ambiente de produção, incluindo as principais métricas de capacidade e utilização dos recursos de infraestrutura. As informações aqui apresentadas são essenciais para o monitoramento e gestão eficaz dos recursos disponíveis.</p>
+        <ul><li>
+                <p><strong>Total de Servidores:</strong> O relatório inclui a contagem total de servidores atualmente em operação no ambiente de produção. Esse dado é fundamental para avaliar a capacidade de processamento e a distribuição das cargas de trabalho.</p>
+            </li>
+            <li>
+                <p><strong>Volume Total de Dados (em GB):</strong> A quantidade total de dados armazenados no ambiente de produção é exibida em gigabytes (GB). Este indicador reflete o espaço de armazenamento ocupado e é crucial para a gestão do espaço disponível, além de auxiliar na projeção de futuras necessidades de armazenamento.</p>
+            </li>
+            <li>
+                <p><strong>Total de CPUs:</strong> A soma total das CPUs disponíveis no ambiente de produção é apresentada. Esta métrica permite avaliar o poder de processamento disponível, ajudando a determinar a capacidade de atender às demandas de processamento atuais e futuras.</p>
+            </li>
+            <li>
+                <p><strong>Total de Memória RAM:</strong> A quantidade total de memória RAM disponível no ambiente de produção é apresentada em gigabytes (GB). A RAM é um recurso crítico para a execução eficiente das aplicações e sistemas, sendo um indicador-chave para a análise de performance do ambiente.</p>
+            </li>
         </ul>
-
-        <h3 id="graficos">Gráficos</h3>
+        <h4 id="informacoes-quantitativas">Valores</h3>
+        <ul>            
+            <li>Total de servidores:<strong>{{ total_servidores }}</strong></li>
+            <li>Volume Total de Dados (em GB):</li>
+            <li>Total de CPUs:<strong>{{ total_cpu }}</strong></li>
+            <li>Total de Memória RAM:<strong>{{ total_ram }}</strong></li>
+        </ul>
+        <p>Essas informações quantitativas fornecem uma visão abrangente da infraestrutura atual, facilitando a tomada de decisões estratégicas para otimização e expansão do ambiente de produção.</p>
+        
+        <h4 id="graficos">Gráficos</h4>
         <ul>
             <li>Distribuição dos sistemas operacionais utilizados nos servidores.</li>
             <li>Classificação dos servidores por tipo: servidores virtuais, servidores físicos, desktops, etc.</li>
@@ -94,11 +138,30 @@
             <li>Servidores com rotinas de backup estabelecidas.</li>
             <li>Origem dos dados obtidos de fontes como Active Directory (A.D.), SCCM, VMM, Hyper-V, VMware e Nutanix.</li>
         </ul>
-
-        <div class="chart-container">
-            <canvas id="so_chart"></canvas>
+        <div class="container-fluid full-height">
+            <div class="row h-200">
+                <div class="col-md-6 column">
+                    <div class="row-content">Sistemas operacional</div>
+                    <div class="row-content"><canvas id="so_chart"></canvas></div>
+                    <div class="row-content">Servidores Monitorados pelo Zabbix</div>
+                    <div class="row-content  half-size"><canvas id="mz_chart"></canvas></div>
+                    <div class="row-content">Coluna 1, Linha 5</div>
+                    <div class="row-content">Coluna 1, Linha 6</div>
+                </div>
+                <div class="col-md-6 column">
+                    <div class="row-content">Classificação dos servidores por tipo</div>
+                    <div class="row-content"><canvas id="st_chart"></canvas></div>
+                    <div class="row-content">Coluna 2, Linha 3</div>
+                    <div class="row-content  half-size"><canvas id="mz_chart"></canvas></div>
+                    <div class="row-content">Coluna 2, Linha 5</div>
+                    <div class="row-content">Coluna 2, Linha 6</div>
+                </div>
+            </div>
         </div>
-
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
 
 
 
@@ -160,9 +223,16 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
     <script>
         window.onload = function() {
-            renderiza_sistema_operacional('{% url "sistema_operacional_chart" %}');
+            renderiza_sistema_operacional('{% url "sistema_operacional_chart" %}')
+            renderiza_servidor_tip('{% url "servidor_tipo_chart" %}')
+            renderiza_monito_zabbix('{% url "monito_zabbix_chart" %}')
         }
     </script>
 </body>
