@@ -33,3 +33,4 @@ class VwRelSrvProducao(models.Model):
                 output_field=IntegerField(),
             )
         ).order_by('id_trilha','order_field', 'zabbix')
+

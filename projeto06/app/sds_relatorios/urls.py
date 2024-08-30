@@ -10,5 +10,7 @@ urlpatterns = [
     path('sistema_operacional_chart/', views.sistema_operacional_chart, name='sistema_operacional_chart'),
     path('servidor_tipo_chart/', views.servidor_tipo_chart, name='servidor_tipo_chart'),
     path('monito_zabbix_chart/', views.monito_zabbix_chart, name='monito_zabbix_chart'),
+    path('srv_backup_chart/', views.srv_backup_chart, name='srv_backup_chart'),
+    path('origem_data_hart/', views.origem_data_hart, name='origem_data_hart'),
     #path('ServerHostDetalhe/<int:pk>/',ServerHostDetalhe.as_view() , name='ServerHostDetalhe'),
 ]

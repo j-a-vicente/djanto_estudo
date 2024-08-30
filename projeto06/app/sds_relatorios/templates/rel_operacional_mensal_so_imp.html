@@ -144,20 +144,39 @@
                     <div class="row-content">Sistemas operacional</div>
                     <div class="row-content"><canvas id="so_chart"></canvas></div>
                     <div class="row-content">Servidores Monitorados pelo Zabbix</div>
-                    <div class="row-content  half-size"><canvas id="mz_chart"></canvas></div>
-                    <div class="row-content">Coluna 1, Linha 5</div>
-                    <div class="row-content">Coluna 1, Linha 6</div>
+                    <div class="row-content half-size"><canvas id="mz_chart"></canvas></div>
+                    <div class="row-content">Origem dos dados</div>
+                    <div class="row-content"><canvas id="or_chart"></canvas></div>
                 </div>
                 <div class="col-md-6 column">
                     <div class="row-content">Classificação dos servidores por tipo</div>
                     <div class="row-content"><canvas id="st_chart"></canvas></div>
-                    <div class="row-content">Coluna 2, Linha 3</div>
-                    <div class="row-content  half-size"><canvas id="mz_chart"></canvas></div>
-                    <div class="row-content">Coluna 2, Linha 5</div>
-                    <div class="row-content">Coluna 2, Linha 6</div>
+                    <div class="row-content">Servidores com rotinas de backup estabelecidas.</div>
+                    <div class="row-content half-size"><canvas id="sb_chart"></canvas></div>
+                    <div class="row-content">xxxxx</div>
+                    <div class="row-content"><canvas id="ev_chart"></canvas></div>                    
+                </div>
+            </div>
+            <div class="row h-200">
+                <div class="col-md-12">
+                    <div class="row-content">Coluna 1 e 2, Linhas 5 e 6 combinadas</div>
+                    <div class="row-content">Coluna 1 e 2, Linhas 5 e 6 combinadas</div>
                 </div>
             </div>
         </div>
+        
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
         <p>&nbsp;</p>
         <p>&nbsp;</p>
         <p>&nbsp;</p>
@@ -233,6 +252,9 @@
             renderiza_sistema_operacional('{% url "sistema_operacional_chart" %}')
             renderiza_servidor_tip('{% url "servidor_tipo_chart" %}')
             renderiza_monito_zabbix('{% url "monito_zabbix_chart" %}')
+            renderiza_srv_backup('{% url "srv_backup_chart" %}')
+            renderiza_origem_data('{% url "origem_data_hart" %}')
+            renderiza_evolucao_volume_dado('{% url "sistema_operacional_chart" %}')
         }
     </script>
 </body>

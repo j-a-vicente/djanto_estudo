@@ -134,3 +134,45 @@ def monito_zabbix_chart(Grequest):
     }
 
     return JsonResponse(data_json)
+
+def srv_backup_chart(Grequest):
+   
+    # Consultar e agrupar os sistemas operacionais por quantidade
+    data = (
+        VwRelSrvProducao.objects
+        .values('zabbix')
+        .annotate(count=Count('zabbix'))
+        .order_by('zabbix')
+    )
+
+    labels = [entry['zabbix'] for entry in data]
+    counts = [entry['count'] for entry in data]
+
+    # Preparar os dados para o JSON
+    data_json = {
+        'labels': labels,
+        'counts': counts,
+    }
+
+    return JsonResponse(data_json)    
+
+def origem_data_hart(Grequest):
+   
+    # Consultar e agrupar os sistemas operacionais por quantidade
+    data = (
+        VwRelSrvProducao.objects
+        .values('origem')
+        .annotate(count=Count('origem'))
+        .order_by('origem')
+    )
+
+    labels = [entry['origem'] for entry in data]
+    counts = [entry['count'] for entry in data]
+
+    # Preparar os dados para o JSON
+    data_json = {
+        'labels': labels,
+        'counts': counts,
+    }
+
+    return JsonResponse(data_json)      
