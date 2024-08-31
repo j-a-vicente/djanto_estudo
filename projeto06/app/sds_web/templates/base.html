@@ -170,8 +170,8 @@
                                 </a>
                                 <div class="collapse" id="collapseRelatorios" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                     <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href=""><i class="fa-solid fa-shield-halved"></i>&nbsp;Relatório 01</a>
-                                        <a class="nav-link" href=""><i class="fa-solid fa-book"></i>&nbsp;Relatório 02</a>
+                                        <a class="nav-link" href="{% url 'rel_op_men_so' %}"><i class="fa-solid fa-shield-halved"></i>&nbsp;Operacional Mensal</a>
+                                        <a class="nav-link" href="{% url 'rel_op_men_so_imp' %}"><i class="fa-solid fa-book"></i>&nbsp;Relatório 02</a>
                                         <a class="nav-link" href=""><i class="fa-solid fa-sliders"></i>&nbsp;Relatório 03</a>
                                         <a class="nav-link" href=""><i class="fa-brands fa-codepen"></i>&nbsp;Relatório 04</a>
                                         <a class="nav-link" href=""><i class="fa-solid fa-layer-group"></i>&nbsp;Relatório 05</a>
@@ -184,19 +184,63 @@
                                     </nav>
                                 </div>
 
+
                                 <!-- Configurações -->
-                                <a class="nav-link collapsed" href="" data-bs-toggle="collapse" data-bs-target="#collapseConfiguracoes" aria-expanded="false"
-                                    aria-controls="collapseConfiguracoes">
+                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseConfig" aria-expanded="false"
+                                    aria-controls="collapseConfig">
                                     <div class="sb-nav-link-icon"><h5><i class="fa-solid fa-gears"></i></div></h5>
                                         <h5>&nbsp; Configurações</h5>
                                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                 </a>
-                                <div class="collapse" id="collapseConfiguracoes" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <div class="collapse" id="collapseConfig" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                     <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="/admin/"><i class="fa-solid fa-screwdriver-wrench"></i>&nbsp;Administração</a>
+
+                                        <a class="nav-link collapsed" href="" data-bs-toggle="collapse" data-bs-target="#collapseSdsIntegrator" aria-expanded="false" aria-controls="collapseSdsIntegrator">
+                                            <i class="fa-solid fa-truck-fast"></i>&nbsp; SDS Integrator
+                                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                        </a>
+                                        <div class="collapse" id="collapseSdsIntegrator" aria-labelledby="headingOne" data-bs-parent="#collapseConfig">
+                                            <nav class="sb-sidenav-menu-nested nav">
+                                                <a id="sds_integrator_dashboard_Link" class="nav-link" href="">
+                                                    <div><i class="fa fa-line-chart" aria-hidden="true"></i>
+                                                        </div>&nbsp;DashBoard</a>
+                                                <a id="sds_integrator_Modulos_Link" class="nav-link" href="{% url 'moduloList' %}">
+                                                    <div><i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+                                                        </div>&nbsp;Modulos</a>
+                                                <a id="sds_integrator_Computadores_Link"class="nav-link" href="">
+                                                    <div><i class="fa-solid fa-database" aria-hidden="true"></i>
+                                                        </div>&nbsp;Fonte de dados</a>
+                                                <a id="sds_integrator_Fonte_de_dados_Link"class="nav-link" href="">
+                                                    <div><i class="fa-solid fa-diagram-predecessor" aria-hidden="true"></i>
+                                                        </div>&nbsp;ETL - Extração</a>
+                                                <a id="sds_integrator_Jobs_Link"class="nav-link" href="">
+                                                    <div><i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
+                                                        </div>&nbsp;Jobs</a> 
+                                                <a id="sds_integrator_Monitor_Link"class="nav-link" href="">
+                                                    <div><i class="fa-brands fa-watchman-monitoring" aria-hidden="true"></i>
+                                                        </div>&nbsp;Monitor</a>
+                                                <a id="sds_integrator_Logs_Link"class="nav-link" href="">
+                                                    <div><i class="fa-solid fa-mobile-button" aria-hidden="true"></i>
+                                                        </div>&nbsp;Logs</a>
+                                            </nav>
+                                        </div>
+                                        <a class="nav-link" href="/admin/"> <i class="fa-solid fa-screwdriver-wrench"></i>&nbsp;Administração</a>
+
+                                        <!--a id="sds_nutanix_apresentacao_Link" class="nav-link" href=""><i class="fa-solid fa-mountain-city"></i>&nbsp;Nutanix</a>
+                                        <a id="sds_vmware_apresentacao_Link" class="nav-link" href=""><i class="fa-solid fa-toilets-portable"></i>&nbsp;VMware</a>
+                                        <a id="sds_listMSrvHost_Link" class="nav-link" href=""><i class="fa-solid fa-file-signature"></i>&nbsp;Cad manual SH</a>
+                                        <a id="sds_sccm_apresentacao_Link" class="nav-link" href=""><i class="fa-solid fa-timeline"></i>&nbsp;SCCM</a>
+                                        <a id="sds_db_apresentacao_Link" class="nav-link" href=""><i class="fa-solid fa-coins"></i>&nbsp;Banco de dados</a>                                          
+                                        <a class="nav-link" href=""><i class="fa-solid fa-folder-tree"></i>&nbsp;File Server</a>
+                                        <a class="nav-link" href=""><i class="fa-solid fa-boxes-stacked"></i>&nbsp;Storage</a --> 
+
                                     </nav>
                                 </div>
 
+
+
+
+                                
                             </div>
                         </div>
                         <div class="sb-sidenav-footer">

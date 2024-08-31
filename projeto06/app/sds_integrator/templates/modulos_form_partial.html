@@ -1,0 +1,5 @@
+
+<form method="post" action="{% url 'modulo_update' modulo.id_modulo %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+</form>

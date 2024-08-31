@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'app.sds_sccm',
     'app.sds_zabbix',
     'app.sds_relatorios',
+    'app.sds_integrator',
 ]
 
 MIDDLEWARE = [
@@ -65,8 +66,11 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': ['app/sds_web/templates',
                 'app/sds_inventario/templates',
-                'app/sds_active_directory/templates'
-                'app/sds_sccm/templates',],
+                'app/sds_active_directory/templates',
+                'app/sds_sccm/templates',
+                'app/sds_zabbix/templates',
+                'app/sds_relatorios/templates',
+                'app/sds_integrator/templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -153,7 +157,18 @@ DATABASES = {
         'OPTIONS': {
             'options': '-c search_path=public'
         }
-    },          
+    },
+    'sds_integrator_db': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'sds_integrator',
+        'USER': 'Sentinel',
+        'PASSWORD':'Sentinel',
+        'HOST':'172.18.0.3',
+        'PORT':'5432',
+        'OPTIONS': {
+            'options': '-c search_path=public'
+        }        
+    },       
 }
 
 
@@ -161,7 +176,8 @@ DATABASES = {
 DATABASE_ROUTERS = ['routers.db_routers.AuthRouter',
 'routers.db_routers.SdsWebRouter','routers.db_routers.SdsInventarioRouter',
 'routers.db_routers.SdsActiveDirectoryRouter','routers.db_routers.SdsSccmRouter',
-'routers.db_routers.SdsDataBaseRouter','routers.db_routers.SdsZabbixRouter',]
+'routers.db_routers.SdsDataBaseRouter','routers.db_routers.SdsZabbixRouter',
+'routers.db_routers.SdsIntegratorRouter',]
 
 
 # Password validation
