@@ -238,3 +238,29 @@ class ModuloServerRun(models.Model):
         managed = False
         db_table = 'modulo_server_run'
         app_label = 'sds_integrator'
+
+
+class VwModuloDatafont(models.Model):
+    id_modulo_datafont = models.AutoField(primary_key=True)
+    id_modulo = models.ForeignKey(Modulo, models.DO_NOTHING, db_column='id_modulo')
+    modulo = models.CharField(max_length=100, blank=True, null=True)
+    tipo_font = models.CharField(max_length=20, blank=True, null=True, db_comment='Se a conexão e de Origem ou Destino')
+    servername = models.CharField(max_length=150, blank=True, null=True)
+    serverip = models.CharField(max_length=150, blank=True, null=True)
+    sgbp = models.CharField(max_length=50, blank=True, null=True)
+    databasename = models.CharField(max_length=100, blank=True, null=True)
+    username = models.CharField(max_length=100, blank=True, null=True)
+    psw = models.CharField(max_length=100, blank=True, null=True)
+    port = models.IntegerField(blank=True, null=True)
+    stringconection = models.TextField(blank=True, null=True)
+    descricao = models.CharField(max_length=255, blank=True, null=True)
+    dhcriacao = models.DateTimeField(blank=True, null=True)
+    dhalteracao = models.DateTimeField(blank=True, null=True)
+    ativo = models.BooleanField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'vw_modulo_datafont'
+        app_label = 'sds_integrator'
+
+        

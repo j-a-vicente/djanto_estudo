@@ -1,0 +1,5 @@
+
+<form method="post" action="{% if form.instance.pk %}{% url 'modulo_datafont_update' form.instance.pk %}{% else %}{% url 'modulo_datafont_create' %}{% endif %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+</form>
